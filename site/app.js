@@ -9,6 +9,14 @@ var express = require('express')
   , path = require('path')
   , fs = require('fs');
 
+var Gir = require('gir');
+var Hmwd = module.exports = Gir.load('Hmwd');
+var data = new Hmwd.Data();
+data.loadTileSetManager("./data/tileset/");
+data.loadMapManager("./data/map/");
+//data.loadSpriteSetManager("./data/spriteset/");
+var data_route = require('./routes/data.js')(data, Hmwd);
+
 var app = express();
 
 app.configure(function(){
@@ -34,6 +42,7 @@ app.get('/spritesets', routes.index);
 app.get('/tilesets', routes.index);
 app.get('/dialogs', routes.index);
 app.get('/dev', routes.index);
+app.get('/tile/:x/:y', data_route.tile);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
