@@ -23,12 +23,11 @@ module.exports = function (data, Hmwd) {
 	function map(req, res){
 
 		var map = data.mapmanager.getFromFilename(req.params.name);
-		var tiles = [];
 		var layers = [];
 		console.log("all_layer_size: "+map.all_layer_size);
-		//for(var l=0;l<map.all_layer_size;l++) {
-		var l = 0;
+		for(var l=0;l<map.all_layer_size;l++) {
 			var count = 0;
+			var tiles = [];
 			for(var y=0;y<map.height;y++) {
 				for(var x=0;x<map.width;x++, count++) {
 					tiles[count] = {
@@ -38,12 +37,12 @@ module.exports = function (data, Hmwd) {
 				}
 			}
 			layers[l]=tiles;
-		//}
+		}
 		console.log("layers: "+layers.length);
 
 		res.render('map', {
 			title: 'HMWorld - Map',
-			tiles : tiles,
+			tiles : layers,
 			width: map.width,
 			height: map.height,
 			tilewidth: map.tilewidth,
