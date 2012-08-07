@@ -13,7 +13,7 @@ function get_readme(return_readme) {
 }
 
 function return_readme(html) {
-  return html
+  return html;
 }
 
 

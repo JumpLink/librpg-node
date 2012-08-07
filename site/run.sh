@@ -4,4 +4,4 @@ export LD_LIBRARY_PATH=./lib/
 export GI_TYPELIB_PATH=./lib/
 export DYLD_LIBRARY_PATH=./lib/
 
-node site/app.js
+node app.js

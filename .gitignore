@@ -7,6 +7,9 @@ lib-cov
 *.pid
 *.gz
 *.sublime*
+*.css
+
+
 
 pids
 logs
@@ -14,4 +17,6 @@ results
 core
 
 node_modules
+lib
+data
 npm-debug.log

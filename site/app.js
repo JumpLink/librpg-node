@@ -12,9 +12,14 @@ var express = require('express')
 var Gir = require('gir');
 var Hmwd = module.exports = Gir.load('Hmwd');
 var data = new Hmwd.Data();
-data.loadTileSetManager("./data/tileset/");
-data.loadMapManager("./data/map/");
-//data.loadSpriteSetManager("./data/spriteset/");
+data.loadTileSetManager("./public/data/tileset/");
+data.loadMapManager("./public/data/map/");
+//data.loadSpriteSetManager("./public/data/spriteset/");
+
+var css = require('./css.js')(data);
+css.generateTileCss();
+css.generateTileSetCss();
+
 var data_route = require('./routes/data.js')(data, Hmwd);
 
 var app = express();
@@ -37,7 +42,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
-app.get('/maps', routes.index);
+app.get('/map/:name', data_route.map);
 app.get('/spritesets', routes.index);
 app.get('/tilesets', routes.index);
 app.get('/dialogs', routes.index);
