@@ -1,4 +1,6 @@
-
+process.env.LD_LIBRARY_PATH = __dirname+"/lib/";
+process.env.GI_TYPELIB_PATH = __dirname+"/lib/";
+process.env.DYLD_LIBRARY_PATH = __dirname+"/lib/";
 /**
  * Module dependencies.
  */
@@ -12,8 +14,8 @@ var express = require('express')
 var Gir = require('gir');
 var Hmwd = module.exports = Gir.load('Hmwd');
 var data = new Hmwd.Data();
-data.loadTileSetManager("./public/data/tileset/");
-data.loadMapManager("./public/data/map/");
+data.loadTileSetManager(__dirname+"/public/data/tileset/");
+data.loadMapManager(__dirname+"/public/data/map/");
 //data.loadSpriteSetManager("./public/data/spriteset/");
 
 var css = require('./css.js')(data);
