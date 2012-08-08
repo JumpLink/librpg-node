@@ -1,0 +1,45 @@
+extends layout
+
+block content
+	.row.show-grid
+		.span4
+			- for (var i=0; i<maps.length; i++)
+				.well
+					// filename
+					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
+						i.icon-file.icon-white
+						| #{maps[i].filename}
+					// tiles
+					a.thumbnail(id="mapinfo-#{i}",href="/map/#{maps[i].filename}")
+						.map(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px")
+							- for (var l=0; l<maps[i].nodejs_tiles.length; l++)
+								.layer(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px;z-index:#{l}")
+									- var count = 0
+									- for (var y = 0; y<height; y++)
+										- for (var x = 0; x<width; x++, count++)
+											.tile(class="tid_#{maps[i].nodejs_tiles[l][count].t_id} ts_#{maps[i].nodejs_tiles[l][count].ts_id}")
+					// info
+					.caption
+						.tab-content
+							h5 #{maps[i].name}
+							p #{maps[i].description}
+							h5 Data
+							dl.dl-horizontal
+								dt name
+								dd #{maps[i].name}
+								dt author
+								dd #{maps[i].author}
+								dt xml version
+								dd #{maps[i].version}
+								dt orientation
+								dd #{maps[i].orientation}
+								dt tilesize
+								dd #{maps[i].tilewidth} × #{maps[i].tileheight} pixel
+								dt mapsize
+								dd #{maps[i].width} × #{maps[i].height} tiles
+								dd #{maps[i].pxl_width} × #{maps[i].pxl_height} pixel
+						div(style="overflow:auto;")
+							.pull-right
+								a.btn.btn-success(title="Download map", href="#{maps[i].download_url}")
+									i.icon-download.icon-white
+									|  Download

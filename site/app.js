@@ -42,6 +42,7 @@ app.configure('development', function(){
 });
 
 app.get('/', routes.index);
+app.get('/map', data_route.map_index);
 app.get('/map/:name', data_route.map);
 app.get('/spritesets', routes.index);
 app.get('/tilesets', routes.index);

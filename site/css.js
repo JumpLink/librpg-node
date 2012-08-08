@@ -23,7 +23,6 @@ module.exports = function (data) {
 			}
 		}); 
 	}
-
 	function generateTileSetCss() {
 		var tilesets = [];
 		for (var i = 0; i < data.tilesetmanager.size; i++) {

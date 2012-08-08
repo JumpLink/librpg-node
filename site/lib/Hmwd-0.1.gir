@@ -1,0 +1,2381 @@
+<?xml version="1.0"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0">
+<include name="GdkPixbuf" version="2.0"/>
+<include name="GObject" version="2.0"/>
+<include name="Gee" version="1.0"/>
+<package name="Hmwd-0.1"/>
+<c:include name="Hmwd-0.1.h"/>
+<namespace name="Hmwd" version="0.1" c:prefix="Hmwd">
+	<enumeration name="EdgeShape" c:type="HmwdEdgeShape" glib:type-name="HmwdEdgeShape" glib:get-type="hmwd_edge_shape_get_type">
+		<member name="full" c:identifier="HMWD_EDGE_SHAPE_FULL" value="0"/>
+		<member name="outer_corner" c:identifier="HMWD_EDGE_SHAPE_OUTER_CORNER" value="1"/>
+		<member name="inner_corner" c:identifier="HMWD_EDGE_SHAPE_INNER_CORNER" value="2"/>
+		<member name="v_line" c:identifier="HMWD_EDGE_SHAPE_V_LINE" value="3"/>
+		<member name="h_line" c:identifier="HMWD_EDGE_SHAPE_H_LINE" value="4"/>
+	</enumeration>
+	<enumeration name="Direction" c:type="HmwdDirection" glib:type-name="HmwdDirection" glib:get-type="hmwd_direction_get_type">
+		<member name="north" c:identifier="HMWD_DIRECTION_NORTH" value="0"/>
+		<member name="east" c:identifier="HMWD_DIRECTION_EAST" value="1"/>
+		<member name="south" c:identifier="HMWD_DIRECTION_SOUTH" value="2"/>
+		<member name="west" c:identifier="HMWD_DIRECTION_WEST" value="3"/>
+	</enumeration>
+	<function name="direction_to_string" c:identifier="hmwd_direction_to_string">
+		<return-value transfer-ownership="full">
+			<type name="utf8" c:type="gchar*"/>
+		</return-value>
+	</function>
+	<function name="direction_parse" c:identifier="hmwd_direction_parse">
+		<return-value transfer-ownership="full">
+			<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+		</return-value>
+		<parameters>
+			<parameter name="str" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<enumeration name="CropType" c:type="HmwdCropType" glib:type-name="HmwdCropType" glib:get-type="hmwd_crop_type_get_type">
+		<member name="empty_crop" c:identifier="HMWD_CROP_TYPE_EMPTY_CROP" value="0"/>
+		<member name="grass" c:identifier="HMWD_CROP_TYPE_GRASS" value="1"/>
+		<member name="potato" c:identifier="HMWD_CROP_TYPE_POTATO" value="2"/>
+	</enumeration>
+	<enumeration name="TileType" c:type="HmwdTileType" glib:type-name="HmwdTileType" glib:get-type="hmwd_tile_type_get_type">
+		<member name="no_tile" c:identifier="HMWD_TILE_TYPE_NO_TILE" value="0"/>
+		<member name="empty_tile" c:identifier="HMWD_TILE_TYPE_EMPTY_TILE" value="1"/>
+		<member name="plantable" c:identifier="HMWD_TILE_TYPE_PLANTABLE" value="2"/>
+		<member name="plant" c:identifier="HMWD_TILE_TYPE_PLANT" value="3"/>
+		<member name="grass" c:identifier="HMWD_TILE_TYPE_GRASS" value="4"/>
+		<member name="path" c:identifier="HMWD_TILE_TYPE_PATH" value="5"/>
+		<member name="building" c:identifier="HMWD_TILE_TYPE_BUILDING" value="6"/>
+		<member name="rock" c:identifier="HMWD_TILE_TYPE_ROCK" value="7"/>
+		<member name="wood" c:identifier="HMWD_TILE_TYPE_WOOD" value="8"/>
+		<member name="water" c:identifier="HMWD_TILE_TYPE_WATER" value="9"/>
+	</enumeration>
+	<enumeration name="SpriteLayerType" c:type="HmwdSpriteLayerType" glib:type-name="HmwdSpriteLayerType" glib:get-type="hmwd_sprite_layer_type_get_type">
+		<member name="base" c:identifier="HMWD_SPRITE_LAYER_TYPE_BASE" value="0"/>
+		<member name="item" c:identifier="HMWD_SPRITE_LAYER_TYPE_ITEM" value="1"/>
+	</enumeration>
+	<function name="sprite_layer_type_parse" c:identifier="hmwd_sprite_layer_type_parse">
+		<return-value transfer-ownership="full">
+			<type name="Hmwd.SpriteLayerType" c:type="HmwdSpriteLayerType"/>
+		</return-value>
+		<parameters>
+			<parameter name="str" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<enumeration name="Mirror" c:type="HmwdMirror" glib:type-name="HmwdMirror" glib:get-type="hmwd_mirror_get_type">
+		<member name="none" c:identifier="HMWD_MIRROR_NONE" value="0"/>
+		<member name="vertical" c:identifier="HMWD_MIRROR_VERTICAL" value="1"/>
+		<member name="horizontal" c:identifier="HMWD_MIRROR_HORIZONTAL" value="2"/>
+	</enumeration>
+	<function name="mirror_to_string" c:identifier="hmwd_mirror_to_string">
+		<return-value transfer-ownership="full">
+			<type name="utf8" c:type="gchar*"/>
+		</return-value>
+	</function>
+	<function name="mirror_parse" c:identifier="hmwd_mirror_parse">
+		<return-value transfer-ownership="full">
+			<type name="Hmwd.Mirror" c:type="HmwdMirror"/>
+		</return-value>
+		<parameters>
+			<parameter name="str" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<enumeration name="Colorspace" c:type="HmwdColorspace" glib:type-name="HmwdColorspace" glib:get-type="hmwd_colorspace_get_type">
+		<member name="rgb" c:identifier="HMWD_COLORSPACE_RGB" value="0"/>
+		<member name="rgba" c:identifier="HMWD_COLORSPACE_RGBA" value="1"/>
+	</enumeration>
+	<function name="colorspace_to_string" c:identifier="hmwd_colorspace_to_string">
+		<return-value transfer-ownership="full">
+			<type name="utf8" c:type="gchar*"/>
+		</return-value>
+	</function>
+	<function name="colorspace_fromGdkPixbuf" c:identifier="hmwd_colorspace_fromGdkPixbuf">
+		<return-value transfer-ownership="full">
+			<type name="Hmwd.Colorspace" c:type="HmwdColorspace"/>
+		</return-value>
+		<parameters>
+			<parameter name="pixbuf" transfer-ownership="none">
+				<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="colorspace_to_channel" c:identifier="hmwd_colorspace_to_channel">
+		<return-value transfer-ownership="full">
+			<type name="gint" c:type="gint"/>
+		</return-value>
+	</function>
+	<function name="colorspace_has_alpha" c:identifier="hmwd_colorspace_has_alpha">
+		<return-value transfer-ownership="full">
+			<type name="gboolean" c:type="gboolean"/>
+		</return-value>
+	</function>
+	<enumeration name="DrawLevel" c:type="HmwdDrawLevel" glib:type-name="HmwdDrawLevel" glib:get-type="hmwd_draw_level_get_type">
+		<member name="under" c:identifier="HMWD_DRAW_LEVEL_UNDER" value="1"/>
+		<member name="same" c:identifier="HMWD_DRAW_LEVEL_SAME" value="0"/>
+		<member name="over" c:identifier="HMWD_DRAW_LEVEL_OVER" value="-1"/>
+	</enumeration>
+	<function name="draw_level_parse" c:identifier="hmwd_draw_level_parse">
+		<return-value transfer-ownership="full">
+			<type name="Hmwd.DrawLevel" c:type="HmwdDrawLevel"/>
+		</return-value>
+		<parameters>
+			<parameter name="str" transfer-ownership="none">
+				<type name="utf8" c:type="const gchar*"/>
+			</parameter>
+		</parameters>
+	</function>
+	<enumeration name="ViewEngine" c:type="HmwdViewEngine" glib:type-name="HmwdViewEngine" glib:get-type="hmwd_view_engine_get_type">
+		<member name="sdl" c:identifier="HMWD_VIEW_ENGINE_SDL" value="0"/>
+		<member name="opengl" c:identifier="HMWD_VIEW_ENGINE_OPENGL" value="1"/>
+		<member name="clutter" c:identifier="HMWD_VIEW_ENGINE_CLUTTER" value="2"/>
+		<member name="gtk_clutter" c:identifier="HMWD_VIEW_ENGINE_GTK_CLUTTER" value="3"/>
+	</enumeration>
+	<enumeration name="Season" c:type="HmwdSeason" glib:type-name="HmwdSeason" glib:get-type="hmwd_season_get_type">
+		<member name="spring" c:identifier="HMWD_SEASON_SPRING" value="0"/>
+		<member name="summer" c:identifier="HMWD_SEASON_SUMMER" value="1"/>
+		<member name="fall" c:identifier="HMWD_SEASON_FALL" value="2"/>
+		<member name="winter" c:identifier="HMWD_SEASON_WINTER" value="3"/>
+	</enumeration>
+	<class name="Animation" c:type="HmwdAnimation" glib:type-name="HmwdAnimation" glib:get-type="hmwd_animation_get_type" glib:type-struct="AnimationClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="AnimationPrivate" c:type="HmwdAnimationPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_animation_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Animation" c:type="HmwdAnimation*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="repeat" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+				<parameter name="direction" transfer-ownership="none">
+					<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+				</parameter>
+				<parameter name="animationdata" transfer-ownership="none">
+					<type name="Gee.List" c:type="GeeList*">
+						<type name="Hmwd.AnimationData" c:type="HmwdAnimationData*"/>
+					</type>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="get_AnimationData" c:identifier="hmwd_animation_get_AnimationData">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.AnimationData" c:type="HmwdAnimationData*"/>
+			</return-value>
+		</method>
+		<method name="printAnimationData" c:identifier="hmwd_animation_printAnimationData">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printValues" c:identifier="hmwd_animation_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_animation_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="name" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="direction" writable="1" construct="1">
+			<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+		</property>
+		<property name="repeat" writable="1" construct="1">
+			<type name="gboolean" c:type="gboolean"/>
+		</property>
+		<property name="frame-ps" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="animationdata" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.AnimationData" c:type="HmwdAnimationData*"/>
+			</type>
+		</property>
+		<property name="current-frame-index" writable="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+	</class>
+	<record name="AnimationClass" c:type="HmwdAnimationClass" glib:is-gtype-struct-for="Animation">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="AnimationPrivate" c:type="HmwdAnimationPrivate" disguised="1"/>
+	<class name="DialogTree" c:type="HmwdDialogTree" glib:type-name="HmwdDialogTree" glib:get-type="hmwd_dialog_tree_get_type" glib:type-struct="DialogTreeClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="DialogTreePrivate" c:type="HmwdDialogTreePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_dialog_tree_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.DialogTree" c:type="HmwdDialogTree*"/>
+			</return-value>
+			<parameters>
+				<parameter name="q" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="a" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="c" transfer-ownership="none">
+					<array length="3">
+						<type name="Hmwd.DialogTree" c:type="HmwdDialogTree*"/>
+					</array>
+				</parameter>
+				<parameter name="c_length1" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="chooseAnswer" c:identifier="hmwd_dialog_tree_chooseAnswer">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="next" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getText" c:identifier="hmwd_dialog_tree_getText">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getAnswer" c:identifier="hmwd_dialog_tree_getAnswer">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.DialogTree" c:type="HmwdDialogTree*"/>
+			</return-value>
+		</method>
+		<property name="answer" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="question" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="choice" writable="1" construct="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="children" writable="1">
+			<array>
+				<type name="Hmwd.DialogTree" c:type="HmwdDialogTree*"/>
+			</array>
+		</property>
+	</class>
+	<record name="DialogTreeClass" c:type="HmwdDialogTreeClass" glib:is-gtype-struct-for="DialogTree">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="DialogTreePrivate" c:type="HmwdDialogTreePrivate" disguised="1"/>
+	<class name="Entity" c:type="HmwdEntity" glib:type-name="HmwdEntity" glib:get-type="hmwd_entity_get_type" glib:type-struct="EntityClass" parent="GObject.Object" abstract="1">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="EntityPrivate" c:type="HmwdEntityPrivate*"/>
+		</field>
+		<function name="compare" c:identifier="hmwd_entity_compare">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="a" transfer-ownership="none">
+					<type name="Hmwd.Entity" c:type="HmwdEntity*"/>
+				</parameter>
+				<parameter name="b" transfer-ownership="none">
+					<type name="Hmwd.Entity" c:type="HmwdEntity*"/>
+				</parameter>
+			</parameters>
+		</function>
+		<method name="setMotion" c:identifier="hmwd_entity_setMotion">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="d" transfer-ownership="none">
+					<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+				</parameter>
+				<parameter name="motion" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="age" c:identifier="hmwd_entity_age">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="age" invoker="age">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<property name="steps-ps" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="pos" writable="1">
+			<type name="Hmwd.Coord" c:type="HmwdCoord*"/>
+		</property>
+		<property name="direction" writable="1">
+			<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+		</property>
+		<property name="motion" writable="1">
+			<type name="gboolean" c:type="gboolean"/>
+		</property>
+		<property name="collisionRadius" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="spriteset" writable="1">
+			<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+		</property>
+	</class>
+	<record name="EntityClass" c:type="HmwdEntityClass" glib:is-gtype-struct-for="Entity">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+				<field name="age">
+			<callback name="age" c:type="age">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="Hmwd.Entity" c:type="HmwdEntity*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+	</record>
+	<record name="EntityPrivate" c:type="HmwdEntityPrivate" disguised="1"/>
+	<class name="Layer" c:type="HmwdLayer" glib:type-name="HmwdLayer" glib:get-type="hmwd_layer_get_type" glib:type-struct="LayerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="LayerPrivate" c:type="HmwdLayerPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_layer_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+		</constructor>
+		<method name="getTileXY" c:identifier="hmwd_layer_getTileXY">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<constructor name="sized" c:identifier="hmwd_layer_new_sized">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="width" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="height" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="all" c:identifier="hmwd_layer_new_all">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="zoff" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+				<parameter name="collision" transfer-ownership="none">
+					<type name="gboolean" c:type="gboolean"/>
+				</parameter>
+				<parameter name="width" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="height" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="calcEdges" c:identifier="hmwd_layer_calcEdges">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printValues" c:identifier="hmwd_layer_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printTiles" c:identifier="hmwd_layer_printTiles">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_layer_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="name" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="zoff" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="width" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="height" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="tiles" writable="1">
+			<array>
+				<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+			</array>
+		</property>
+		<property name="collision" writable="1">
+			<type name="gboolean" c:type="gboolean"/>
+		</property>
+	</class>
+	<record name="LayerClass" c:type="HmwdLayerClass" glib:is-gtype-struct-for="Layer">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="LayerPrivate" c:type="HmwdLayerPrivate" disguised="1"/>
+	<class name="LogicalTile" c:type="HmwdLogicalTile" glib:type-name="HmwdLogicalTile" glib:get-type="hmwd_logical_tile_get_type" glib:type-struct="LogicalTileClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="LogicalTilePrivate" c:type="HmwdLogicalTilePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_logical_tile_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.LogicalTile" c:type="HmwdLogicalTile*"/>
+			</return-value>
+		</constructor>
+		<property name="tile-type" writable="1">
+			<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+		</property>
+		<property name="plant" writable="1">
+			<type name="Hmwd.Plant" c:type="HmwdPlant*"/>
+		</property>
+	</class>
+	<record name="LogicalTileClass" c:type="HmwdLogicalTileClass" glib:is-gtype-struct-for="LogicalTile">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="LogicalTilePrivate" c:type="HmwdLogicalTilePrivate" disguised="1"/>
+	<class name="Data" c:type="HmwdData" glib:type-name="HmwdData" glib:get-type="hmwd_data_get_type" glib:type-struct="DataClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="DataPrivate" c:type="HmwdDataPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_data_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Data" c:type="HmwdData*"/>
+			</return-value>
+		</constructor>
+		<method name="loadTileSetManager" c:identifier="hmwd_data_loadTileSetManager">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="loadMapManager" c:identifier="hmwd_data_loadMapManager">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="loadSpriteSetManager" c:identifier="hmwd_data_loadSpriteSetManager">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printAll" c:identifier="hmwd_data_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="tilesetmanager" writable="1">
+			<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+		</property>
+		<property name="mapmanager" writable="1">
+			<type name="Hmwd.MapManager" c:type="HmwdMapManager*"/>
+		</property>
+		<property name="spritesetmanager" writable="1">
+			<type name="Hmwd.SpriteSetManager" c:type="HmwdSpriteSetManager*"/>
+		</property>
+	</class>
+	<record name="DataClass" c:type="HmwdDataClass" glib:is-gtype-struct-for="Data">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="DataPrivate" c:type="HmwdDataPrivate" disguised="1"/>
+	<class name="MapManager" c:type="HmwdMapManager" glib:type-name="HmwdMapManager" glib:get-type="hmwd_map_manager_get_type" glib:type-struct="MapManagerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="MapManagerPrivate" c:type="HmwdMapManagerPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_map_manager_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.MapManager" c:type="HmwdMapManager*"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="tilesetmanager" transfer-ownership="none">
+					<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getMapFromIndex" c:identifier="hmwd_map_manager_getMapFromIndex">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Map" c:type="HmwdMap*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getMapFilenameFromIndex" c:identifier="hmwd_map_manager_getMapFilenameFromIndex">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFromFilename" c:identifier="hmwd_map_manager_getFromFilename">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Map" c:type="HmwdMap*"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printAll" c:identifier="hmwd_map_manager_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="folder" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="tilesetmanager" writable="1" construct="1">
+			<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+		</property>
+		<property name="length">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="size">
+			<type name="gint" c:type="gint"/>
+		</property>
+	</class>
+	<record name="MapManagerClass" c:type="HmwdMapManagerClass" glib:is-gtype-struct-for="MapManager">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="MapManagerPrivate" c:type="HmwdMapManagerPrivate" disguised="1"/>
+	<class name="Map" c:type="HmwdMap" glib:type-name="HmwdMap" glib:get-type="hmwd_map_get_type" glib:type-struct="MapClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="MapPrivate" c:type="HmwdMapPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_map_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Map" c:type="HmwdMap*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromPath" c:identifier="hmwd_map_new_fromPath">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Map" c:type="HmwdMap*"/>
+			</return-value>
+			<parameters>
+				<parameter name="path" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="tilesetmanager" transfer-ownership="none">
+					<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="setFromPath" c:identifier="hmwd_map_setFromPath">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="path" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="tilesetmanager" transfer-ownership="none">
+					<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<function name="getTileSetRefFromGid" c:identifier="hmwd_map_getTileSetRefFromGid">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+			</return-value>
+			<parameters>
+				<parameter name="tilesetrefs" transfer-ownership="none">
+					<type name="Gee.List" c:type="GeeList*">
+						<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+					</type>
+				</parameter>
+				<parameter name="gid" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</function>
+		<method name="getTileSetRefFromGidFromOwn" c:identifier="hmwd_map_getTileSetRefFromGidFromOwn">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+			</return-value>
+			<parameters>
+				<parameter name="gid" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileSetIndexFromGid" c:identifier="hmwd_map_getTileSetIndexFromGid">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="gid" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileSetIndexFromPosition" c:identifier="hmwd_map_getTileSetIndexFromPosition">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="layer_index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileIDFromGid" c:identifier="hmwd_map_getTileIDFromGid">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="gid" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileIDFromPosition" c:identifier="hmwd_map_getTileIDFromPosition">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="layer_index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileGIDFromPosition" c:identifier="hmwd_map_getTileGIDFromPosition">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="layer_index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getLayerFromName" c:identifier="hmwd_map_getLayerFromName">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getLayerFromIndex" c:identifier="hmwd_map_getLayerFromIndex">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getLayerFromIndexInverse" c:identifier="hmwd_map_getLayerFromIndexInverse">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getIndexOfLayerName" c:identifier="hmwd_map_getIndexOfLayerName">
+			<return-value transfer-ownership="full">
+				<type name="gint" c:type="gint"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="walkable" c:identifier="hmwd_map_walkable">
+			<return-value transfer-ownership="full">
+				<type name="gboolean" c:type="gboolean"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printValues" c:identifier="hmwd_map_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printLayers" c:identifier="hmwd_map_printLayers">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printTileSets" c:identifier="hmwd_map_printTileSets">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_map_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="orientation" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="version" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="width" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="height" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="pxl-width">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="pxl-height">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="tilewidth" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="tileheight" writable="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="filename" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="path" writable="1" construct-only="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="tileset" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+			</type>
+		</property>
+		<property name="layers-over" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</type>
+		</property>
+		<property name="layers-same" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</type>
+		</property>
+		<property name="layers-under" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.Layer" c:type="HmwdLayer*"/>
+			</type>
+		</property>
+		<property name="all-layer-size">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="entities" writable="1">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.Entity" c:type="HmwdEntity*"/>
+			</type>
+		</property>
+		<property name="tiles" writable="1">
+			<array>
+				<type name="Hmwd.LogicalTile" c:type="HmwdLogicalTile*"/>
+			</array>
+		</property>
+		<property name="tilesetmanager" writable="1" construct="1">
+			<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+		</property>
+	</class>
+	<record name="MapClass" c:type="HmwdMapClass" glib:is-gtype-struct-for="Map">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="MapPrivate" c:type="HmwdMapPrivate" disguised="1"/>
+	<class name="Matrix" c:type="HmwdMatrix" glib:type-name="HmwdMatrix" glib:get-type="hmwd_matrix_get_type" glib:type-struct="MatrixClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="MatrixPrivate" c:type="HmwdMatrixPrivate*"/>
+		</field>
+		<field name="mat">
+			<array>
+				<type name="gdouble" c:type="gdouble"/>
+			</array>
+		</field>
+		<field name="sq">
+			<type name="gboolean" c:type="gboolean"/>
+		</field>
+		<constructor name="square" c:identifier="hmwd_matrix_new_square">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="n" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="new" c:identifier="hmwd_matrix_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="n" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="m" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="copy" c:identifier="hmwd_matrix_new_copy">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="m" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="unityMatrix" c:identifier="hmwd_matrix_unityMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+		</method>
+		<method name="nullMatrix" c:identifier="hmwd_matrix_nullMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+		</method>
+		<method name="copyMatrix" c:identifier="hmwd_matrix_copyMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="c" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="translationMatrix" c:identifier="hmwd_matrix_translationMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="t" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="scalingMatrix" c:identifier="hmwd_matrix_scalingMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="s" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="rotationMatrix" c:identifier="hmwd_matrix_rotationMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="angle" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+				<parameter name="axis" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="multMatrix" c:identifier="hmwd_matrix_multMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="l" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+				<parameter name="r" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="multMatrixScalar" c:identifier="hmwd_matrix_multMatrixScalar">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="o" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+				<parameter name="s" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="addMatrix" c:identifier="hmwd_matrix_addMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="l" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+				<parameter name="r" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="transposeMatrix" c:identifier="hmwd_matrix_transposeMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="op" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="mkTrans" c:identifier="hmwd_matrix_mkTrans">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="t" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="mkScale" c:identifier="hmwd_matrix_mkScale">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="s" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="mkRot" c:identifier="hmwd_matrix_mkRot">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="arc" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+				<parameter name="axis" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="mult" c:identifier="hmwd_matrix_mult">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="r" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="multScalar" c:identifier="hmwd_matrix_multScalar">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="s" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="multVector" c:identifier="hmwd_matrix_multVector">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="v" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="add" c:identifier="hmwd_matrix_add">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+			<parameters>
+				<parameter name="r" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="transpose" c:identifier="hmwd_matrix_transpose">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+			</return-value>
+		</method>
+		<method name="toString" c:identifier="hmwd_matrix_toString">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<property name="n" writable="1" construct="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="m" writable="1" construct="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+	</class>
+	<record name="MatrixClass" c:type="HmwdMatrixClass" glib:is-gtype-struct-for="Matrix">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="MatrixPrivate" c:type="HmwdMatrixPrivate" disguised="1"/>
+	<class name="Plant" c:type="HmwdPlant" glib:type-name="HmwdPlant" glib:get-type="hmwd_plant_get_type" glib:type-struct="PlantClass" parent="GObject.Object" abstract="1">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="PlantPrivate" c:type="HmwdPlantPrivate*"/>
+		</field>
+		<field name="alive">
+			<type name="gboolean" c:type="gboolean"/>
+		</field>
+		<field name="watered">
+			<type name="gboolean" c:type="gboolean"/>
+		</field>
+		<field name="daysUntilHarvest">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="cropsLeft">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="hmwd_plant_timeBetweenCrops">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="hmwd_plant_maxCrops">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="hmwd_plant_crop">
+			<type name="Hmwd.CropType" c:type="HmwdCropType"/>
+		</field>
+		<field name="spriteset">
+			<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+		</field>
+		<method name="grow" c:identifier="hmwd_plant_grow">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="water" c:identifier="hmwd_plant_water">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="harvest" c:identifier="hmwd_plant_harvest">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.CropType" c:type="HmwdCropType"/>
+			</return-value>
+		</method>
+	</class>
+	<record name="PlantClass" c:type="HmwdPlantClass" glib:is-gtype-struct-for="Plant">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="PlantPrivate" c:type="HmwdPlantPrivate" disguised="1"/>
+	<class name="RegularTile" c:type="HmwdRegularTile" glib:type-name="HmwdRegularTile" glib:get-type="hmwd_regular_tile_get_type" glib:type-struct="RegularTileClass" parent="Hmwd.Tile">
+		<field name="parent_instance">
+			<type name="Hmwd.Tile" c:type="HmwdTile"/>
+		</field>
+		<field name="priv">
+			<type name="RegularTilePrivate" c:type="HmwdRegularTilePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_regular_tile_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.RegularTile" c:type="HmwdRegularTile*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromPixbuf" c:identifier="hmwd_regular_tile_new_fromPixbuf">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.RegularTile" c:type="HmwdRegularTile*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pixbuf" transfer-ownership="none">
+					<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+	</class>
+	<record name="RegularTileClass" c:type="HmwdRegularTileClass" glib:is-gtype-struct-for="RegularTile">
+		<field name="parent_class">
+			<type name="Hmwd.TileClass" c:type="HmwdTileClass"/>
+		</field>
+	</record>
+	<record name="RegularTilePrivate" c:type="HmwdRegularTilePrivate" disguised="1"/>
+	<class name="SplitTile" c:type="HmwdSplitTile" glib:type-name="HmwdSplitTile" glib:get-type="hmwd_split_tile_get_type" glib:type-struct="SplitTileClass" parent="Hmwd.Tile">
+		<field name="parent_instance">
+			<type name="Hmwd.Tile" c:type="HmwdTile"/>
+		</field>
+		<field name="priv">
+			<type name="SplitTilePrivate" c:type="HmwdSplitTilePrivate*"/>
+		</field>
+		<field name="subTiles">
+			<array>
+				<type name="Hmwd.SubTile" c:type="HmwdSubTile*"/>
+			</array>
+		</field>
+		<constructor name="new" c:identifier="hmwd_split_tile_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SplitTile" c:type="HmwdSplitTile*"/>
+			</return-value>
+		</constructor>
+	</class>
+	<record name="SplitTileClass" c:type="HmwdSplitTileClass" glib:is-gtype-struct-for="SplitTile">
+		<field name="parent_class">
+			<type name="Hmwd.TileClass" c:type="HmwdTileClass"/>
+		</field>
+	</record>
+	<record name="SplitTilePrivate" c:type="HmwdSplitTilePrivate" disguised="1"/>
+	<class name="SpriteLayer" c:type="HmwdSpriteLayer" glib:type-name="HmwdSpriteLayer" glib:get-type="hmwd_sprite_layer_get_type" glib:type-struct="SpriteLayerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="SpriteLayerPrivate" c:type="HmwdSpriteLayerPrivate*"/>
+		</field>
+		<field name="trans">
+			<type name="utf8" c:type="gchar*"/>
+		</field>
+		<field name="sprites">
+			<array>
+				<type name="Hmwd.Sprite" c:type="HmwdSprite*"/>
+			</array>
+		</field>
+		<constructor name="new" c:identifier="hmwd_sprite_layer_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SpriteLayer" c:type="HmwdSpriteLayer*"/>
+			</return-value>
+			<parameters>
+				<parameter name="number" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="image_filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="type" transfer-ownership="none">
+					<type name="Hmwd.SpriteLayerType" c:type="HmwdSpriteLayerType"/>
+				</parameter>
+				<parameter name="trans" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="count_x" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="count_y" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="spritewidth" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="spriteheight" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="printSprites" c:identifier="hmwd_sprite_layer_printSprites">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_sprite_layer_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printValues" c:identifier="hmwd_sprite_layer_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="sprite-layer-type" writable="1" construct="1">
+			<type name="Hmwd.SpriteLayerType" c:type="HmwdSpriteLayerType"/>
+		</property>
+		<property name="active" writable="1" construct="1">
+			<type name="gboolean" c:type="gboolean"/>
+		</property>
+		<property name="name" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="number" writable="1" construct="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="image-filename" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="width" writable="1" construct="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="height" writable="1" construct="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="spritewidth" writable="1" construct="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="spriteheight" writable="1" construct="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+	</class>
+	<record name="SpriteLayerClass" c:type="HmwdSpriteLayerClass" glib:is-gtype-struct-for="SpriteLayer">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="SpriteLayerPrivate" c:type="HmwdSpriteLayerPrivate" disguised="1"/>
+	<class name="SpriteSetManager" c:type="HmwdSpriteSetManager" glib:type-name="HmwdSpriteSetManager" glib:get-type="hmwd_sprite_set_manager_get_type" glib:type-struct="SpriteSetManagerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="SpriteSetManagerPrivate" c:type="HmwdSpriteSetManagerPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_sprite_set_manager_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SpriteSetManager" c:type="HmwdSpriteSetManager*"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="loadAllFromFolder" c:identifier="hmwd_sprite_set_manager_loadAllFromFolder">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFromName" c:identifier="hmwd_sprite_set_manager_getFromName">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFromFilename" c:identifier="hmwd_sprite_set_manager_getFromFilename">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printAll" c:identifier="hmwd_sprite_set_manager_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="folder" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+	</class>
+	<record name="SpriteSetManagerClass" c:type="HmwdSpriteSetManagerClass" glib:is-gtype-struct-for="SpriteSetManager">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="SpriteSetManagerPrivate" c:type="HmwdSpriteSetManagerPrivate" disguised="1"/>
+	<class name="SpriteSet" c:type="HmwdSpriteSet" glib:type-name="HmwdSpriteSet" glib:get-type="hmwd_sprite_set_get_type" glib:type-struct="SpriteSetClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="SpriteSetPrivate" c:type="HmwdSpriteSetPrivate*"/>
+		</field>
+		<field name="name">
+			<type name="utf8" c:type="gchar*"/>
+		</field>
+		<field name="spritewidth">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="spriteheight">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="width">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="height">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="version">
+			<type name="utf8" c:type="gchar*"/>
+		</field>
+		<field name="spritelayers">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.SpriteLayer" c:type="HmwdSpriteLayer*"/>
+			</type>
+		</field>
+		<field name="animations">
+			<type name="Gee.List" c:type="GeeList*">
+				<type name="Hmwd.Animation" c:type="HmwdAnimation*"/>
+			</type>
+		</field>
+		<field name="current_animation">
+			<type name="Hmwd.Animation" c:type="HmwdAnimation*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_sprite_set_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromPath" c:identifier="hmwd_sprite_set_new_fromPath">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SpriteSet" c:type="HmwdSpriteSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="set_Animation" c:identifier="hmwd_sprite_set_set_Animation">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="direction" transfer-ownership="none">
+					<type name="Hmwd.Direction" c:type="HmwdDirection"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="get_baseLayer" c:identifier="hmwd_sprite_set_get_baseLayer">
+			<return-value transfer-ownership="full" allow-none="1">
+				<type name="Hmwd.SpriteLayer" c:type="HmwdSpriteLayer*"/>
+			</return-value>
+		</method>
+		<method name="printSpriteLayers" c:identifier="hmwd_sprite_set_printSpriteLayers">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAnimation" c:identifier="hmwd_sprite_set_printAnimation">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printValues" c:identifier="hmwd_sprite_set_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_sprite_set_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="filename" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="folder" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="pixelwidth">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="pixelheight">
+			<type name="guint" c:type="guint"/>
+		</property>
+	</class>
+	<record name="SpriteSetClass" c:type="HmwdSpriteSetClass" glib:is-gtype-struct-for="SpriteSet">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="SpriteSetPrivate" c:type="HmwdSpriteSetPrivate" disguised="1"/>
+	<class name="Sprite" c:type="HmwdSprite" glib:type-name="HmwdSprite" glib:get-type="hmwd_sprite_get_type" glib:type-struct="SpriteClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="SpritePrivate" c:type="HmwdSpritePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_sprite_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Sprite" c:type="HmwdSprite*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pixbuf" transfer-ownership="none">
+					<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="printValues" c:identifier="hmwd_sprite_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_sprite_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="save" c:identifier="hmwd_sprite_save">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="tex" writable="1">
+			<type name="Hmwd.GdkTexture" c:type="HmwdGdkTexture*"/>
+		</property>
+		<property name="width">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="height">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+	</class>
+	<record name="SpriteClass" c:type="HmwdSpriteClass" glib:is-gtype-struct-for="Sprite">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="SpritePrivate" c:type="HmwdSpritePrivate" disguised="1"/>
+	<class name="SubTile" c:type="HmwdSubTile" glib:type-name="HmwdSubTile" glib:get-type="hmwd_sub_tile_get_type" glib:type-struct="SubTileClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="SubTilePrivate" c:type="HmwdSubTilePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_sub_tile_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.SubTile" c:type="HmwdSubTile*"/>
+			</return-value>
+		</constructor>
+		<method name="calcEdge" c:identifier="hmwd_sub_tile_calcEdge">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="neighbours" transfer-ownership="none">
+					<array length="1">
+						<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+					</array>
+				</parameter>
+				<parameter name="neighbours_length1" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+				<parameter name="type" transfer-ownership="none">
+					<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+				</parameter>
+				<parameter name="location" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="edge" writable="1" construct="1">
+			<type name="Hmwd.EdgeShape" c:type="HmwdEdgeShape"/>
+		</property>
+	</class>
+	<record name="SubTileClass" c:type="HmwdSubTileClass" glib:is-gtype-struct-for="SubTile">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="SubTilePrivate" c:type="HmwdSubTilePrivate" disguised="1"/>
+	<class name="TileSetManager" c:type="HmwdTileSetManager" glib:type-name="HmwdTileSetManager" glib:get-type="hmwd_tile_set_manager_get_type" glib:type-struct="TileSetManagerClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="TileSetManagerPrivate" c:type="HmwdTileSetManagerPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_tile_set_manager_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSetManager" c:type="HmwdTileSetManager*"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="getFromName" c:identifier="hmwd_tile_set_manager_getFromName">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="name" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFromFilename" c:identifier="hmwd_tile_set_manager_getFromFilename">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getFromSource" c:identifier="hmwd_tile_set_manager_getFromSource">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="source" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getSourcesFromIndex" c:identifier="hmwd_tile_set_manager_getSourcesFromIndex">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printAll" c:identifier="hmwd_tile_set_manager_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="folder" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="size">
+			<type name="gint" c:type="gint"/>
+		</property>
+	</class>
+	<record name="TileSetManagerClass" c:type="HmwdTileSetManagerClass" glib:is-gtype-struct-for="TileSetManager">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="TileSetManagerPrivate" c:type="HmwdTileSetManagerPrivate" disguised="1"/>
+	<class name="TileSetReference" c:type="HmwdTileSetReference" glib:type-name="HmwdTileSetReference" glib:get-type="hmwd_tile_set_reference_get_type" glib:type-struct="TileSetReferenceClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="TileSetReferencePrivate" c:type="HmwdTileSetReferencePrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_tile_set_reference_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+			</return-value>
+			<parameters>
+				<parameter name="firstgid" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+				<parameter name="source" transfer-ownership="none">
+					<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="printValues" c:identifier="hmwd_tile_set_reference_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="source" writable="1" construct="1">
+			<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+		</property>
+		<property name="firstgid" writable="1" construct="1">
+			<type name="guint" c:type="guint"/>
+		</property>
+	</class>
+	<record name="TileSetReferenceClass" c:type="HmwdTileSetReferenceClass" glib:is-gtype-struct-for="TileSetReference">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="TileSetReferencePrivate" c:type="HmwdTileSetReferencePrivate" disguised="1"/>
+	<class name="TileSet" c:type="HmwdTileSet" glib:type-name="HmwdTileSet" glib:get-type="hmwd_tile_set_get_type" glib:type-struct="TileSetClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="TileSetPrivate" c:type="HmwdTileSetPrivate*"/>
+		</field>
+		<field name="name">
+			<type name="utf8" c:type="gchar*"/>
+		</field>
+		<field name="tilewidth">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="tileheight">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="trans">
+			<type name="utf8" c:type="gchar*"/>
+		</field>
+		<field name="width">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="height">
+			<type name="guint" c:type="guint"/>
+		</field>
+		<field name="tile">
+			<array>
+				<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+			</array>
+		</field>
+		<constructor name="new" c:identifier="hmwd_tile_set_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromPath" c:identifier="hmwd_tile_set_new_fromPath">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="loadFromPath" c:identifier="hmwd_tile_set_loadFromPath">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="getTileFromIndex" c:identifier="hmwd_tile_set_getTileFromIndex">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+			</return-value>
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="guint" c:type="guint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="save" c:identifier="hmwd_tile_set_save">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="folder" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printTiles" c:identifier="hmwd_tile_set_printTiles">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printValues" c:identifier="hmwd_tile_set_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<method name="printAll" c:identifier="hmwd_tile_set_printAll">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="filename" writable="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="source" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="count-y">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="count-x">
+			<type name="guint" c:type="guint"/>
+		</property>
+	</class>
+	<record name="TileSetClass" c:type="HmwdTileSetClass" glib:is-gtype-struct-for="TileSet">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="TileSetPrivate" c:type="HmwdTileSetPrivate" disguised="1"/>
+	<class name="Tile" c:type="HmwdTile" glib:type-name="HmwdTile" glib:get-type="hmwd_tile_get_type" glib:type-struct="TileClass" parent="GObject.Object" abstract="1">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="TilePrivate" c:type="HmwdTilePrivate*"/>
+		</field>
+		<method name="save" c:identifier="hmwd_tile_save">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="save" invoker="save">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<method name="printValues" c:identifier="hmwd_tile_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<virtual-method name="printValues" invoker="printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</virtual-method>
+		<method name="calcEdges" c:identifier="hmwd_tile_calcEdges">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="neighbours" transfer-ownership="none">
+					<array length="1">
+						<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+					</array>
+				</parameter>
+				<parameter name="neighbours_length1" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<virtual-method name="calcEdges" invoker="calcEdges">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="neighbours" transfer-ownership="none">
+					<array length="1">
+						<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+					</array>
+				</parameter>
+				<parameter name="neighbours_length1" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</virtual-method>
+		<property name="tex" writable="1" construct="1">
+			<type name="Hmwd.GdkTexture" c:type="HmwdGdkTexture*"/>
+		</property>
+		<property name="gid" writable="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+		<property name="width">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="height">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="tile-type" writable="1" construct="1">
+			<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+		</property>
+	</class>
+	<record name="TileClass" c:type="HmwdTileClass" glib:is-gtype-struct-for="Tile">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+				<field name="save">
+			<callback name="save" c:type="save">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+					</parameter>
+					<parameter name="filename" transfer-ownership="none">
+						<type name="utf8" c:type="const gchar*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+				<field name="printValues">
+			<callback name="printValues" c:type="printValues">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+				<field name="calcEdges">
+			<callback name="calcEdges" c:type="calcEdges">
+				<return-value transfer-ownership="full">
+					<type name="none"/>
+				</return-value>
+				<parameters>
+					<parameter name="self" transfer-ownership="none">
+						<type name="Hmwd.Tile" c:type="HmwdTile*"/>
+					</parameter>
+					<parameter name="neighbours" transfer-ownership="none">
+						<array length="2">
+							<type name="Hmwd.TileType" c:type="HmwdTileType"/>
+						</array>
+					</parameter>
+					<parameter name="neighbours_length1" transfer-ownership="none">
+						<type name="gint" c:type="gint"/>
+					</parameter>
+				</parameters>
+			</callback>
+		</field>
+	</record>
+	<record name="TilePrivate" c:type="HmwdTilePrivate" disguised="1"/>
+	<class name="Coord" c:type="HmwdCoord" glib:type-name="HmwdCoord" glib:get-type="hmwd_coord_get_type" glib:type-struct="CoordClass" parent="Hmwd.Vector">
+		<field name="parent_instance">
+			<type name="Hmwd.Vector" c:type="HmwdVector"/>
+		</field>
+		<field name="priv">
+			<type name="CoordPrivate" c:type="HmwdCoordPrivate*"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_coord_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Coord" c:type="HmwdCoord*"/>
+			</return-value>
+		</constructor>
+		<constructor name="nondefault" c:identifier="hmwd_coord_new_nondefault">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Coord" c:type="HmwdCoord*"/>
+			</return-value>
+			<parameters>
+				<parameter name="x" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+				<parameter name="y" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<property name="x" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="y" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+	</class>
+	<record name="CoordClass" c:type="HmwdCoordClass" glib:is-gtype-struct-for="Coord">
+		<field name="parent_class">
+			<type name="Hmwd.VectorClass" c:type="HmwdVectorClass"/>
+		</field>
+	</record>
+	<record name="CoordPrivate" c:type="HmwdCoordPrivate" disguised="1"/>
+	<class name="AnimationData" c:type="HmwdAnimationData" glib:type-name="HmwdAnimationData" glib:get-type="hmwd_animation_data_get_type" glib:type-struct="AnimationDataClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="AnimationDataPrivate" c:type="HmwdAnimationDataPrivate*"/>
+		</field>
+		<field name="mirror">
+			<type name="Hmwd.Mirror" c:type="HmwdMirror"/>
+		</field>
+		<constructor name="new" c:identifier="hmwd_animation_data_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.AnimationData" c:type="HmwdAnimationData*"/>
+			</return-value>
+		</constructor>
+		<method name="to_string" c:identifier="hmwd_animation_data_to_string">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<property name="coord" writable="1">
+			<type name="Hmwd.Coord" c:type="HmwdCoord*"/>
+		</property>
+		<property name="x" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="y" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+	</class>
+	<record name="AnimationDataClass" c:type="HmwdAnimationDataClass" glib:is-gtype-struct-for="AnimationData">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="AnimationDataPrivate" c:type="HmwdAnimationDataPrivate" disguised="1"/>
+	<class name="Vector" c:type="HmwdVector" glib:type-name="HmwdVector" glib:get-type="hmwd_vector_get_type" glib:type-struct="VectorClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="VectorPrivate" c:type="HmwdVectorPrivate*"/>
+		</field>
+		<field name="vec">
+			<array>
+				<type name="gdouble" c:type="gdouble"/>
+			</array>
+		</field>
+		<constructor name="new" c:identifier="hmwd_vector_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="dim" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromDifference" c:identifier="hmwd_vector_new_fromDifference">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="v1" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+				<parameter name="v2" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="addVector" c:identifier="hmwd_vector_addVector">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="v" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="ScalarProduct" c:identifier="hmwd_vector_ScalarProduct">
+			<return-value transfer-ownership="full">
+				<type name="gdouble" c:type="gdouble"/>
+			</return-value>
+			<parameters>
+				<parameter name="v" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="VectorProduct" c:identifier="hmwd_vector_VectorProduct">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="v" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="divideByScalar" c:identifier="hmwd_vector_divideByScalar">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="s" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="multScalar" c:identifier="hmwd_vector_multScalar">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="s" transfer-ownership="none">
+					<type name="gdouble" c:type="gdouble"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="VectorNorm" c:identifier="hmwd_vector_VectorNorm">
+			<return-value transfer-ownership="full">
+				<type name="gdouble" c:type="gdouble"/>
+			</return-value>
+		</method>
+		<method name="normVector" c:identifier="hmwd_vector_normVector">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+		</method>
+		<method name="multMatrix" c:identifier="hmwd_vector_multMatrix">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="m" transfer-ownership="none">
+					<type name="Hmwd.Matrix" c:type="HmwdMatrix*"/>
+				</parameter>
+				<parameter name="v" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="crop" c:identifier="hmwd_vector_crop">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+			</return-value>
+			<parameters>
+				<parameter name="min" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+				<parameter name="max" transfer-ownership="none">
+					<type name="Hmwd.Vector" c:type="HmwdVector*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<property name="dim" writable="1" construct="1">
+			<type name="gint" c:type="gint"/>
+		</property>
+	</class>
+	<record name="VectorClass" c:type="HmwdVectorClass" glib:is-gtype-struct-for="Vector">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="VectorPrivate" c:type="HmwdVectorPrivate" disguised="1"/>
+	<class name="GdkTexture" c:type="HmwdGdkTexture" glib:type-name="HmwdGdkTexture" glib:get-type="hmwd_gdk_texture_get_type" glib:type-struct="GdkTextureClass" parent="GObject.Object">
+		<field name="parent_instance">
+			<type name="GObject.Object" c:type="GObject"/>
+		</field>
+		<field name="priv">
+			<type name="GdkTexturePrivate" c:type="HmwdGdkTexturePrivate*"/>
+		</field>
+		<method name="copy_pixels" c:identifier="hmwd_gdk_texture_copy_pixels">
+			<return-value transfer-ownership="full">
+				<array length="0">
+					<type name="guint8" c:type="guint8"/>
+				</array>
+			</return-value>
+			<parameters>
+				<parameter name="result_length1" direction="out" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="copy_pixel" c:identifier="hmwd_gdk_texture_copy_pixel">
+			<return-value transfer-ownership="full">
+				<type name="guint8" c:type="guint8"/>
+			</return-value>
+			<parameters>
+				<parameter name="n" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="save_to_buffer" c:identifier="hmwd_gdk_texture_save_to_buffer">
+			<return-value transfer-ownership="full">
+				<array length="0">
+					<type name="guint8" c:type="guint8"/>
+				</array>
+			</return-value>
+			<parameters>
+				<parameter name="type" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+				<parameter name="result_length1" direction="out" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="save_to_buffer_string" c:identifier="hmwd_gdk_texture_save_to_buffer_string">
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+			<parameters>
+				<parameter name="type" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<constructor name="new" c:identifier="hmwd_gdk_texture_new">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.GdkTexture" c:type="HmwdGdkTexture*"/>
+			</return-value>
+		</constructor>
+		<constructor name="fromFile" c:identifier="hmwd_gdk_texture_new_fromFile">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.GdkTexture" c:type="HmwdGdkTexture*"/>
+			</return-value>
+			<parameters>
+				<parameter name="path" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<constructor name="fromPixbuf" c:identifier="hmwd_gdk_texture_new_fromPixbuf">
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.GdkTexture" c:type="HmwdGdkTexture*"/>
+			</return-value>
+			<parameters>
+				<parameter name="pixbuf" transfer-ownership="none">
+					<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+				</parameter>
+			</parameters>
+		</constructor>
+		<method name="loadFromFile" c:identifier="hmwd_gdk_texture_loadFromFile">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="path" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="loadFromPixbuf" c:identifier="hmwd_gdk_texture_loadFromPixbuf">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="pixbuf" transfer-ownership="none">
+					<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="save" c:identifier="hmwd_gdk_texture_save">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+			<parameters>
+				<parameter name="filename" transfer-ownership="none">
+					<type name="utf8" c:type="const gchar*"/>
+				</parameter>
+			</parameters>
+		</method>
+		<method name="printValues" c:identifier="hmwd_gdk_texture_printValues">
+			<return-value transfer-ownership="full">
+				<type name="none"/>
+			</return-value>
+		</method>
+		<property name="pixbuf" writable="1" construct="1">
+			<type name="GdkPixbuf.Pixbuf" c:type="GdkPixbuf*"/>
+		</property>
+		<property name="path" writable="1" construct="1">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="width" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="height" writable="1">
+			<type name="gdouble" c:type="gdouble"/>
+		</property>
+		<property name="colorspace">
+			<type name="Hmwd.Colorspace" c:type="HmwdColorspace"/>
+		</property>
+		<property name="length">
+			<type name="guint" c:type="guint"/>
+		</property>
+		<property name="pixels">
+			<array>
+				<type name="guint8" c:type="guint8"/>
+			</array>
+		</property>
+		<property name="string-pixels">
+			<type name="utf8" c:type="gchar*"/>
+		</property>
+		<property name="has-alpha">
+			<type name="gboolean" c:type="gboolean"/>
+		</property>
+	</class>
+	<record name="GdkTextureClass" c:type="HmwdGdkTextureClass" glib:is-gtype-struct-for="GdkTexture">
+		<field name="parent_class">
+			<type name="GObject.ObjectClass" c:type="GObjectClass"/>
+		</field>
+	</record>
+	<record name="GdkTexturePrivate" c:type="HmwdGdkTexturePrivate" disguised="1"/>
+	<function name="Round" c:identifier="hmwd_Round">
+		<return-value transfer-ownership="full">
+			<type name="gint" c:type="gint"/>
+		</return-value>
+		<parameters>
+			<parameter name="num" transfer-ownership="none">
+				<type name="gdouble" c:type="gdouble"/>
+			</parameter>
+		</parameters>
+	</function>
+	<function name="toggle" c:identifier="hmwd_toggle">
+		<return-value transfer-ownership="full">
+			<type name="gboolean" c:type="gboolean"/>
+		</return-value>
+		<parameters>
+			<parameter name="b" transfer-ownership="none">
+				<type name="gboolean" c:type="gboolean"/>
+			</parameter>
+		</parameters>
+	</function>
+</namespace>
+</repository>

@@ -7386,7 +7386,7 @@ a.badge:hover {
 }
 @media (min-width: 1200px) {
   body {
-    padding-top: 40px;
+    padding-top: 60px;
   }
 }
 .navbar .brand {
@@ -7416,4 +7416,10 @@ a.badge:hover {
 .label a:hover {
   color: #ffffff;
   text-decoration: none;
+}
+.map {
+  position: relative;
+}
+.layer {
+  position: absolute;
 }

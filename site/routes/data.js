@@ -20,16 +20,13 @@ module.exports = function (data, Hmwd) {
 		}); 
 	}
 
-	function map(req, res){
-
-		var map = data.mapmanager.getFromFilename(req.params.name);
+	function getMapTiles(map, area_l, area_x, area_y) {
 		var layers = [];
-		console.log("all_layer_size: "+map.all_layer_size);
-		for(var l=0;l<map.all_layer_size;l++) {
+		for(var l=area_l.from;l<area_l.to;l++) {
 			var count = 0;
 			var tiles = [];
-			for(var y=0;y<map.height;y++) {
-				for(var x=0;x<map.width;x++, count++) {
+			for(var y=area_y.from;y<area_y.to;y++) {
+				for(var x=area_x.from;x<area_x.to;x++, count++) {
 					tiles[count] = {
 						t_id: map.getTileIDFromPosition(x,y,l),
 						ts_id: map.getTileSetIndexFromPosition(x,y,l)
@@ -38,11 +35,17 @@ module.exports = function (data, Hmwd) {
 			}
 			layers[l]=tiles;
 		}
-		console.log("layers: "+layers.length);
+		return layers;
+
+	}
+
+	function map(req, res){
+
+		var map = data.mapmanager.getFromFilename(req.params.name);
 
 		res.render('map', {
-			title: 'HMWorld - Map',
-			tiles : layers,
+			title: 'HMWorld - Map '+req.params.name,
+			tiles : getMapTiles(map, {from: 0, to: map.all_layer_size}, {from: 0, to: map.width},  {from: 0, to: map.height}),
 			width: map.width,
 			height: map.height,
 			tilewidth: map.tilewidth,
@@ -50,9 +53,33 @@ module.exports = function (data, Hmwd) {
 		}); 
 	}
 
+	function map_index(req, res){
+
+		var mapmanager = data.mapmanager;
+		var width = 20;
+		var height = 15;
+		var maps = [];
+		for(var i=0;i<mapmanager.size;i++) {
+			maps[i] = mapmanager.getMapFromIndex(i);
+			maps[i].download_url = maps[i].path.replace("./public","")+maps[i].filename;
+			maps[i].nodejs_tiles = getMapTiles(maps[i], {from: 0, to: maps[i].all_layer_size}, {from: 0, to: width}, {from: 0, to: height})
+			maps[i].description = "This is a simle test map to test our game engine."; //TOTO move to Hmwd
+			maps[i].name = "Test Map"; //TOTO move to Hmwd
+			maps[i].author = "Pascal Garber"; //TOTO move to Hmwd
+		}
+
+		res.render('map_index', {
+			title: 'HMWorld - Map Index',
+			maps : maps,
+			width: width,
+			height: height
+		}); 
+	}
+
 	return {
 		tile : tile,
-		map : map
+		map : map,
+		map_index : map_index
 	}
 }
 
