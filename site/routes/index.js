@@ -26,3 +26,9 @@ exports.index = function(req, res){
     });
   });
 };
+
+exports.work = function(req, res){
+  res.render('work', {
+    title: 'HMWorld - work in progress'
+  });
+};

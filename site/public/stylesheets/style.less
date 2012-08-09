@@ -1,11 +1,30 @@
 @import "bootstrap.less";
 @import "responsive.less";
+@import "tile.less";
+@import "tileset.less";
 
 @media (min-width: 1200px) {
   body {
     padding-top: 60px;
   }
 }
+//Unity like scrollbar
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+
+::-webkit-scrollbar-track {
+    //-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    background-color:transparent;
+    border-radius: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+    border-radius: 0px;
+    background-color: #f07746;
+}
+
 .navbar .brand {
   padding-top:4px;
 }

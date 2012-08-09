@@ -15,7 +15,7 @@ module.exports = function (data) {
 			".tid_"+(a+1)+"{background-position:-"+(a%max_width)*width+"px -"+parseInt(a/max_width)*height+"px;} ";
 		};
 		//console.log(css);
-		fs.writeFile(__dirname+"/public/stylesheets/tile.css", css, function(err) {
+		fs.writeFile(__dirname+"/public/stylesheets/tile.less", css, function(err) {
 			if(err) {
 				console.log(err);
 			} else {
@@ -35,7 +35,7 @@ module.exports = function (data) {
 			css +=
 			".ts_"+i+"{background-image: url(/data/tileset/"+tilesets[i].replace(new RegExp(" ","g"), '%20')+");}"
 		};
-		fs.writeFile(__dirname+"/public/stylesheets/tileset.css", css, function(err) {
+		fs.writeFile(__dirname+"/public/stylesheets/tileset.less", css, function(err) {
 			if(err) {
 				console.log(err);
 			} else {

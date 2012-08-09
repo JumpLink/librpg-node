@@ -46,11 +46,11 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/map', data_route.map_index);
 app.get('/map/:name', data_route.map);
-app.get('/spritesets', routes.index);
-app.get('/tilesets', routes.index);
-app.get('/dialogs', routes.index);
-app.get('/dev', routes.index);
-app.get('/tile/:x/:y', data_route.tile);
+app.get('/map/:name/tile/:x/:y', data_route.tile);
+app.get('/spriteset', routes.work);
+app.get('/tileset', routes.work);
+app.get('/dialog', routes.work);
+app.get('/dev', routes.work);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));

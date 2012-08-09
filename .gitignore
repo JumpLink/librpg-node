@@ -8,8 +8,8 @@ lib-cov
 *.gz
 *.sublime*
 *.css
-
-
+tile.less
+tileset.less
 
 pids
 logs
