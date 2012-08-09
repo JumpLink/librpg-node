@@ -46,6 +46,9 @@ block content
 								dt mapsize
 								dd #{maps[i].width} × #{maps[i].height} tiles
 								dd #{maps[i].pxl_width} × #{maps[i].pxl_height} pixel
+								dt tilesets
+								- for (var j=0; j<maps[i].nodejs_tileset.filename.length; j++)
+									dd: a(href="#{maps[i].nodejs_tileset.url}") #{maps[i].nodejs_tileset.filename[j]}
 						div(style="overflow:auto;")
 							.pull-right
 								a.btn.btn-success(title="Download map", href="#{maps[i].download_url}")

@@ -713,6 +713,36 @@
 				<type name="gint" c:type="gint"/>
 			</return-value>
 		</method>
+		<method name="getTileSetSourceFromIndex" c:identifier="hmwd_map_getTileSetSourceFromIndex">
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+			<return-value transfer-ownership="full">
+				<type name="utf8" c:type="gchar*"/>
+			</return-value>
+		</method>
+		<method name="getTileSetRefFromIndex" c:identifier="hmwd_map_getTileSetRefFromIndex">
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
+			</return-value>
+		</method>
+		<method name="getTileSetFromIndex" c:identifier="hmwd_map_getTileSetFromIndex">
+			<parameters>
+				<parameter name="index" transfer-ownership="none">
+					<type name="gint" c:type="gint"/>
+				</parameter>
+			</parameters>
+			<return-value transfer-ownership="full">
+				<type name="Hmwd.TileSet" c:type="HmwdTileSet*"/>
+			</return-value>
+		</method>
 		<method name="getTileSetIndexFromPosition" c:identifier="hmwd_map_getTileSetIndexFromPosition">
 			<parameters>
 				<parameter name="x" transfer-ownership="none">
@@ -878,6 +908,9 @@
 			<type name="Gee.List" c:type="GeeList*">
 				<type name="Hmwd.TileSetReference" c:type="HmwdTileSetReference*"/>
 			</type>
+		</property>
+		<property name="tileset-size">
+			<type name="gint" c:type="gint"/>
 		</property>
 		<property name="layers-over" writable="1">
 			<type name="Gee.List" c:type="GeeList*">

@@ -198,6 +198,16 @@ typedef struct _HmwdMapPrivate HmwdMapPrivate;
 typedef struct _HmwdTileSetReference HmwdTileSetReference;
 typedef struct _HmwdTileSetReferenceClass HmwdTileSetReferenceClass;
 
+#define HMWD_TYPE_TILE_SET (hmwd_tile_set_get_type ())
+#define HMWD_TILE_SET(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), HMWD_TYPE_TILE_SET, HmwdTileSet))
+#define HMWD_TILE_SET_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), HMWD_TYPE_TILE_SET, HmwdTileSetClass))
+#define HMWD_IS_TILE_SET(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HMWD_TYPE_TILE_SET))
+#define HMWD_IS_TILE_SET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), HMWD_TYPE_TILE_SET))
+#define HMWD_TILE_SET_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), HMWD_TYPE_TILE_SET, HmwdTileSetClass))
+
+typedef struct _HmwdTileSet HmwdTileSet;
+typedef struct _HmwdTileSetClass HmwdTileSetClass;
+
 #define HMWD_TYPE_MATRIX (hmwd_matrix_get_type ())
 #define HMWD_MATRIX(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), HMWD_TYPE_MATRIX, HmwdMatrix))
 #define HMWD_MATRIX_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), HMWD_TYPE_MATRIX, HmwdMatrixClass))
@@ -284,16 +294,6 @@ typedef struct _HmwdSubTilePrivate HmwdSubTilePrivate;
 
 #define HMWD_TYPE_EDGE_SHAPE (hmwd_edge_shape_get_type ())
 typedef struct _HmwdTileSetManagerPrivate HmwdTileSetManagerPrivate;
-
-#define HMWD_TYPE_TILE_SET (hmwd_tile_set_get_type ())
-#define HMWD_TILE_SET(obj) (G_TYPE_CHECK_INSTANCE_CAST ((obj), HMWD_TYPE_TILE_SET, HmwdTileSet))
-#define HMWD_TILE_SET_CLASS(klass) (G_TYPE_CHECK_CLASS_CAST ((klass), HMWD_TYPE_TILE_SET, HmwdTileSetClass))
-#define HMWD_IS_TILE_SET(obj) (G_TYPE_CHECK_INSTANCE_TYPE ((obj), HMWD_TYPE_TILE_SET))
-#define HMWD_IS_TILE_SET_CLASS(klass) (G_TYPE_CHECK_CLASS_TYPE ((klass), HMWD_TYPE_TILE_SET))
-#define HMWD_TILE_SET_GET_CLASS(obj) (G_TYPE_INSTANCE_GET_CLASS ((obj), HMWD_TYPE_TILE_SET, HmwdTileSetClass))
-
-typedef struct _HmwdTileSet HmwdTileSet;
-typedef struct _HmwdTileSetClass HmwdTileSetClass;
 typedef struct _HmwdTileSetReferencePrivate HmwdTileSetReferencePrivate;
 typedef struct _HmwdTileSetPrivate HmwdTileSetPrivate;
 typedef struct _HmwdVectorPrivate HmwdVectorPrivate;
@@ -773,6 +773,10 @@ GType hmwd_tile_set_reference_get_type (void) G_GNUC_CONST;
 HmwdTileSetReference* hmwd_map_getTileSetRefFromGid (GeeList* tilesetrefs, guint gid);
 HmwdTileSetReference* hmwd_map_getTileSetRefFromGidFromOwn (HmwdMap* self, gint gid);
 gint hmwd_map_getTileSetIndexFromGid (HmwdMap* self, gint gid);
+gchar* hmwd_map_getTileSetSourceFromIndex (HmwdMap* self, gint index);
+HmwdTileSetReference* hmwd_map_getTileSetRefFromIndex (HmwdMap* self, gint index);
+GType hmwd_tile_set_get_type (void) G_GNUC_CONST;
+HmwdTileSet* hmwd_map_getTileSetFromIndex (HmwdMap* self, gint index);
 gint hmwd_map_getTileSetIndexFromPosition (HmwdMap* self, gint x, gint y, gint layer_index);
 gint hmwd_map_getTileIDFromGid (HmwdMap* self, gint gid);
 gint hmwd_map_getTileIDFromPosition (HmwdMap* self, gint x, gint y, gint layer_index);
@@ -805,6 +809,7 @@ void hmwd_map_set_filename (HmwdMap* self, const gchar* value);
 const gchar* hmwd_map_get_path (HmwdMap* self);
 GeeList* hmwd_map_get_tileset (HmwdMap* self);
 void hmwd_map_set_tileset (HmwdMap* self, GeeList* value);
+gint hmwd_map_get_tileset_size (HmwdMap* self);
 GeeList* hmwd_map_get_layers_over (HmwdMap* self);
 void hmwd_map_set_layers_over (HmwdMap* self, GeeList* value);
 GeeList* hmwd_map_get_layers_same (HmwdMap* self);
@@ -933,7 +938,6 @@ HmwdEdgeShape hmwd_sub_tile_get_edge (HmwdSubTile* self);
 void hmwd_sub_tile_set_edge (HmwdSubTile* self, HmwdEdgeShape value);
 HmwdTileSetManager* hmwd_tile_set_manager_new (const gchar* folder);
 HmwdTileSetManager* hmwd_tile_set_manager_construct (GType object_type, const gchar* folder);
-GType hmwd_tile_set_get_type (void) G_GNUC_CONST;
 HmwdTileSet* hmwd_tile_set_manager_getFromName (HmwdTileSetManager* self, const gchar* name);
 HmwdTileSet* hmwd_tile_set_manager_getFromFilename (HmwdTileSetManager* self, const gchar* filename);
 HmwdTileSet* hmwd_tile_set_manager_getFromSource (HmwdTileSetManager* self, const gchar* source);

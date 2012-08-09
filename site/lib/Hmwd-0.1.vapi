@@ -123,10 +123,13 @@ namespace Hmwd {
 		public int getTileGIDFromPosition (int x, int y, int layer_index);
 		public int getTileIDFromGid (int gid);
 		public int getTileIDFromPosition (int x, int y, int layer_index);
+		public Hmwd.TileSet getTileSetFromIndex (int index);
 		public int getTileSetIndexFromGid (int gid);
 		public int getTileSetIndexFromPosition (int x, int y, int layer_index);
 		public static Hmwd.TileSetReference getTileSetRefFromGid (Gee.List<Hmwd.TileSetReference> tilesetrefs, uint gid);
 		public Hmwd.TileSetReference getTileSetRefFromGidFromOwn (int gid);
+		public Hmwd.TileSetReference getTileSetRefFromIndex (int index);
+		public string getTileSetSourceFromIndex (int index);
 		public void printAll ();
 		public void printLayers ();
 		public void printTileSets ();
@@ -147,6 +150,7 @@ namespace Hmwd {
 		public uint tileheight { get; set; }
 		public Hmwd.LogicalTile[,] tiles { get; set; }
 		public Gee.List<Hmwd.TileSetReference> tileset { get; set; }
+		public int tileset_size { get; }
 		public Hmwd.TileSetManager tilesetmanager { get; set construct; }
 		public uint tilewidth { get; set; }
 		public string version { get; set; }

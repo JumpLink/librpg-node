@@ -53,6 +53,21 @@ module.exports = function (data, Hmwd) {
 		}); 
 	}
 
+	function getMapTileSetSources(map) {
+		var nodejs_tileset = {
+			filename : [],
+			url : []
+		}
+		//console.log("map.tileset_size "+map.tileset_size);
+		for(var i=0;i<map.tileset_size;i++) {
+			//console.log(map.getTileSetSourceFromIndex(i));
+			nodejs_tileset.filename[i] = map.getTileSetSourceFromIndex(i);
+			//nodejs_tileset.url[i] = "/tileset#" + nodejs_tileset.filename[i].replace(new RegExp(" ","g"), '%20');
+			nodejs_tileset.url[i] = "/tileset#" + nodejs_tileset.filename[i];
+		}
+		return nodejs_tileset;
+	}
+
 	function map_index(req, res){
 
 		var mapmanager = data.mapmanager;
@@ -66,6 +81,7 @@ module.exports = function (data, Hmwd) {
 			maps[i].description = "This is a simle test map to test our game engine."; //TOTO move to Hmwd
 			maps[i].name = "Test Map"; //TOTO move to Hmwd
 			maps[i].author = "Pascal Garber"; //TOTO move to Hmwd
+			maps[i].nodejs_tileset = getMapTileSetSources(maps[i]);
 		}
 
 		res.render('map_index', {
