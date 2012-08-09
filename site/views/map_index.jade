@@ -18,7 +18,7 @@ block content
 						| #{maps[i].filename}
 					// tiles
 					a.thumbnail(id="mapinfo-#{i}",href="/map/#{maps[i].filename}")
-						.map-tumb(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px")
+						.map-thumb(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px")
 							- for (var l=0; l<maps[i].nodejs_tiles.length; l++)
 								.layer(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px;z-index:#{l}")
 									- var count = 0

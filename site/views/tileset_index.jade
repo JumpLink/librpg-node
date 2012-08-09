@@ -1,0 +1,36 @@
+extends layout
+
+block content
+	.alert.alert-info
+		a.close(data-dismiss="alert", href="#") ×
+		h4.alert-heading Send us your own tileset!
+		p
+			| If you think you have a tileset that fits into our game and you wish to see your own tileset here, please send a email to 
+			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
+			| with the tileset as attachment.
+	.row.show-grid
+		.span4
+			- for (var i=0; i<tilesets.length; i++)
+				.well
+					// filename
+					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
+						i.icon-file.icon-white
+						| #{tilesets[i].source}
+					// tiles
+					a.thumbnail(id="tilesetinfo-#{i}",href="#{tilesets[i].url}")
+						img(src="#{tilesets[i].url}",alt="#{tilesets[i].filename}")
+					.caption
+						.tab-content
+							h5 #{tilesets[i].name}
+							p #{tilesets[i].description}
+							h5 Data
+							dl.dl-horizontal
+								dt name
+								dd #{tilesets[i].name}
+								dt author
+								dd #{tilesets[i].author}
+						div(style="overflow:auto;")
+							.pull-right
+								a.btn.btn-success(title="Download map", href="#{tilesets[i].url}")
+									i.icon-download.icon-white
+									|  Download

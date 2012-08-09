@@ -76,10 +76,29 @@ module.exports = function (data, Hmwd) {
 		}); 
 	}
 
+	function tileset_index(req, res){
+
+		var tilesetmanager = data.tilesetmanager;
+		var tilesets = [];
+		for(var i=0;i<tilesetmanager.size;i++) {
+			tilesets[i] = tilesetmanager.getFromIndex(i);
+			tilesets[i].url = "/data/tileset/"+tilesets[i].source.replace(new RegExp(" ","g"), '%20');
+			tilesets[i].description = "This is a test tileset to test this this site."; //TOTO move to Hmwd
+			tilesets[i].name = "Test TileSet"; //TOTO move to Hmwd
+			tilesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
+		}
+
+		res.render('tileset_index', {
+			title: 'HMWorld - TileSet Index',
+			tilesets : tilesets,
+		}); 
+	}
+
 	return {
 		tile : tile,
 		map : map,
-		map_index : map_index
+		map_index : map_index,
+		tileset_index: tileset_index
 	}
 }
 

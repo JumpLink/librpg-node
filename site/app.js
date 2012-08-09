@@ -47,8 +47,8 @@ app.get('/', routes.index);
 app.get('/map', data_route.map_index);
 app.get('/map/:name', data_route.map);
 app.get('/map/:name/tile/:x/:y', data_route.tile);
+app.get('/tileset', data_route.tileset_index);
 app.get('/spriteset', routes.work);
-app.get('/tileset', routes.work);
 app.get('/dialog', routes.work);
 app.get('/dev', routes.work);
 
