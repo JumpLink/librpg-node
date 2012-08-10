@@ -8,7 +8,7 @@ namespace Hmwd {
 		public void printAll ();
 		public void printAnimationData ();
 		public void printValues ();
-		public Gee.List<Hmwd.AnimationData> animationdata { get; set; }
+		public Gee.List<Hmwd.AnimationData> animationdata { get; set construct; }
 		public int current_frame_index { get; set; }
 		public Hmwd.Direction direction { get; set construct; }
 		public double frame_ps { get; set; }
@@ -240,11 +240,12 @@ namespace Hmwd {
 	public class SpriteLayer : GLib.Object {
 		public Hmwd.Sprite[,] sprites;
 		public string trans;
-		public SpriteLayer (int number, string name, string image_filename, Hmwd.SpriteLayerType type, string trans, uint count_x, uint count_y, uint spritewidth, uint spriteheight);
+		public SpriteLayer (string folder, int number, string name, string image_filename, Hmwd.SpriteLayerType type, string trans, uint count_x, uint count_y, uint spritewidth, uint spriteheight);
 		public void printAll ();
 		public void printSprites ();
 		public void printValues ();
 		public bool active { get; set construct; }
+		public string folder { get; set construct; }
 		public uint height { get; set construct; }
 		public string image_filename { get; set construct; }
 		public string name { get; set construct; }
@@ -280,12 +281,16 @@ namespace Hmwd {
 	}
 	[CCode (cheader_filename = "Hmwd-0.1.h")]
 	public class SpriteSetManager : GLib.Object {
+		public Gee.List<Hmwd.SpriteSet> spriteset;
 		public SpriteSetManager (string folder);
 		public Hmwd.SpriteSet getFromFilename (string filename);
+		public Hmwd.SpriteSet getFromIndex (int index);
 		public Hmwd.SpriteSet? getFromName (string name);
 		public void loadAllFromFolder (string folder);
 		public void printAll ();
 		public string folder { get; set construct; }
+		public int length { get; }
+		public int size { get; }
 	}
 	[CCode (cheader_filename = "Hmwd-0.1.h")]
 	public class SubTile : GLib.Object {

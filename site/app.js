@@ -16,7 +16,7 @@ var Hmwd = module.exports = Gir.load('Hmwd');
 var data = new Hmwd.Data();
 data.loadTileSetManager(__dirname+"/public/data/tileset/");
 data.loadMapManager(__dirname+"/public/data/map/");
-//data.loadSpriteSetManager("./public/data/spriteset/");
+data.loadSpriteSetManager(__dirname+"/public/data/spriteset/");
 
 var css = require('./css.js')(data);
 css.generateTileCss();
@@ -48,7 +48,7 @@ app.get('/map', data_route.map_index);
 app.get('/map/:name', data_route.map);
 app.get('/map/:name/tile/:x/:y', data_route.tile);
 app.get('/tileset', data_route.tileset_index);
-app.get('/spriteset', routes.work);
+app.get('/spriteset', data_route.spriteset_index);
 app.get('/dialog', routes.work);
 app.get('/dev', routes.work);
 

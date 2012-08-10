@@ -99,7 +99,7 @@ module.exports = function (data, Hmwd) {
 		for(var i=0;i<tilesetmanager.size;i++) {
 			tilesets[i] = tilesetmanager.getFromIndex(i);
 			tilesets[i].url = "/data/tileset/"+tilesets[i].source.replace(new RegExp(" ","g"), '%20');
-			tilesets[i].description = "This is a test tileset to test this this site."; //TOTO move to Hmwd
+			tilesets[i].description = "This is a test tileset to test this site."; //TOTO move to Hmwd
 			tilesets[i].name = "Test TileSet"; //TOTO move to Hmwd
 			tilesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
 		}
@@ -110,11 +110,31 @@ module.exports = function (data, Hmwd) {
 		}); 
 	}
 
+	function spriteset_index(req, res){
+
+		var spritesetmanager = data.spritesetmanager;
+		var spritesets = [];
+		for(var i=0;i<spritesetmanager.size;i++) {
+			spritesets[i] = spritesetmanager.getFromIndex(i);
+			console.log(spritesets[i].name);
+			spritesets[i].url = "/data/spriteset/"+spritesets[i].filename.replace(new RegExp(" ","g"), '%20');
+			spritesets[i].description = "This is a test spriteset to test this site."; //TOTO move to Hmwd
+			spritesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
+			spritesets[i].name = "test "+i;
+		}
+		console.log("spritesetmanager.length "+ spritesetmanager.size);
+		res.render('spriteset_index', {
+			title: 'HMWorld - SpriteSet Index',
+			spritesets : spritesets,
+		}); 
+	}
+
 	return {
 		tile : tile,
 		map : map,
 		map_index : map_index,
-		tileset_index: tileset_index
+		tileset_index: tileset_index,
+		spriteset_index: spriteset_index
 	}
 }
 

@@ -1,0 +1,37 @@
+extends layout
+
+block content
+	.alert.alert-info
+		a.close(data-dismiss="alert", href="#") ×
+		h4.alert-heading Send us your own spriteset!
+		p
+			| If you think you have a spriteset that fits into our game and you wish to see your own spriteset here, please send a email to 
+			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
+			| with the spriteset as attachment.
+	.row.show-grid
+		.span4
+			- for (var i=0; i<spritesets.length; i++)
+				.well
+					// filename
+					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
+						i.icon-file.icon-white
+						| #{spritesets[i].filename}
+					// tiles
+					a.thumbnail(id="spritesetinfo-#{i}",href="#{spritesets[i].url}")
+						//img(src="#{spritesets[i].url}",alt="#{spritesets[i].filename}")
+						p work in progress..
+					.caption
+						.tab-content
+							h5 #{spritesets[i].name}
+							p #{spritesets[i].description}
+							h5 Data
+							dl.dl-horizontal
+								dt name
+								dd #{spritesets[i].name}
+								dt author
+								dd #{spritesets[i].author}
+						div(style="overflow:auto;")
+							.pull-right
+								a.btn.btn-success(title="Download spriteset", href="#{spritesets[i].url}")
+									i.icon-download.icon-white
+									|  Download

@@ -490,6 +490,7 @@ typedef enum  {
 struct _HmwdSpriteSetManager {
 	GObject parent_instance;
 	HmwdSpriteSetManagerPrivate * priv;
+	GeeList* spriteset;
 };
 
 struct _HmwdSpriteSetManagerClass {
@@ -873,8 +874,8 @@ HmwdSplitTile* hmwd_split_tile_construct (GType object_type);
 GType hmwd_sprite_layer_get_type (void) G_GNUC_CONST;
 GType hmwd_sprite_get_type (void) G_GNUC_CONST;
 GType hmwd_sprite_layer_type_get_type (void) G_GNUC_CONST;
-HmwdSpriteLayer* hmwd_sprite_layer_new (gint number, const gchar* name, const gchar* image_filename, HmwdSpriteLayerType type, const gchar* trans, guint count_x, guint count_y, guint spritewidth, guint spriteheight);
-HmwdSpriteLayer* hmwd_sprite_layer_construct (GType object_type, gint number, const gchar* name, const gchar* image_filename, HmwdSpriteLayerType type, const gchar* trans, guint count_x, guint count_y, guint spritewidth, guint spriteheight);
+HmwdSpriteLayer* hmwd_sprite_layer_new (const gchar* folder, gint number, const gchar* name, const gchar* image_filename, HmwdSpriteLayerType type, const gchar* trans, guint count_x, guint count_y, guint spritewidth, guint spriteheight);
+HmwdSpriteLayer* hmwd_sprite_layer_construct (GType object_type, const gchar* folder, gint number, const gchar* name, const gchar* image_filename, HmwdSpriteLayerType type, const gchar* trans, guint count_x, guint count_y, guint spritewidth, guint spriteheight);
 void hmwd_sprite_layer_printSprites (HmwdSpriteLayer* self);
 void hmwd_sprite_layer_printAll (HmwdSpriteLayer* self);
 void hmwd_sprite_layer_printValues (HmwdSpriteLayer* self);
@@ -896,12 +897,17 @@ guint hmwd_sprite_layer_get_spritewidth (HmwdSpriteLayer* self);
 void hmwd_sprite_layer_set_spritewidth (HmwdSpriteLayer* self, guint value);
 guint hmwd_sprite_layer_get_spriteheight (HmwdSpriteLayer* self);
 void hmwd_sprite_layer_set_spriteheight (HmwdSpriteLayer* self, guint value);
+const gchar* hmwd_sprite_layer_get_folder (HmwdSpriteLayer* self);
+void hmwd_sprite_layer_set_folder (HmwdSpriteLayer* self, const gchar* value);
 HmwdSpriteSetManager* hmwd_sprite_set_manager_new (const gchar* folder);
 HmwdSpriteSetManager* hmwd_sprite_set_manager_construct (GType object_type, const gchar* folder);
 void hmwd_sprite_set_manager_loadAllFromFolder (HmwdSpriteSetManager* self, const gchar* folder);
 HmwdSpriteSet* hmwd_sprite_set_manager_getFromName (HmwdSpriteSetManager* self, const gchar* name);
+HmwdSpriteSet* hmwd_sprite_set_manager_getFromIndex (HmwdSpriteSetManager* self, gint index);
 HmwdSpriteSet* hmwd_sprite_set_manager_getFromFilename (HmwdSpriteSetManager* self, const gchar* filename);
 void hmwd_sprite_set_manager_printAll (HmwdSpriteSetManager* self);
+gint hmwd_sprite_set_manager_get_length (HmwdSpriteSetManager* self);
+gint hmwd_sprite_set_manager_get_size (HmwdSpriteSetManager* self);
 const gchar* hmwd_sprite_set_manager_get_folder (HmwdSpriteSetManager* self);
 void hmwd_sprite_set_manager_set_folder (HmwdSpriteSetManager* self, const gchar* value);
 HmwdSpriteSet* hmwd_sprite_set_new (void);

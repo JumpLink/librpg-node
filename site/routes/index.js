@@ -19,7 +19,11 @@ function return_readme(html) {
 
 exports.index = function(req, res){
   fetchUrl("https://raw.github.com/JumpLink/HMWorld/master/README.md", function(error, meta, body){
-    var readme = converter.makeHtml(body.toString());
+    var readme;
+    if(typeof(body)!=="undefined")
+      readme = converter.makeHtml(body.toString());
+    else
+      readme = "coudn't load README.md";
     res.render('index', {
       title: 'HMWorld',
       readme:readme
