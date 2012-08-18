@@ -1,6 +1,3 @@
-process.env.LD_LIBRARY_PATH = __dirname+"/lib/";
-process.env.GI_TYPELIB_PATH = __dirname+"/lib/";
-process.env.DYLD_LIBRARY_PATH = __dirname+"/lib/";
 /**
  * Module dependencies.
  */
@@ -45,8 +42,9 @@ app.configure('development', function(){
 
 app.get('/', routes.index);
 app.get('/map', data_route.map_index);
+app.get('/maptest', data_route.map_test);
 app.get('/map/:name', data_route.map);
-app.get('/map/:name/tile/:x/:y', data_route.tile);
+app.get('/map/:name/tile/:x/:y', data_route.maptile);
 app.get('/tileset', data_route.tileset_index);
 app.get('/spriteset', data_route.spriteset_index);
 app.get('/dialog', routes.work);
