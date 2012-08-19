@@ -2,7 +2,7 @@ var fs = require('fs');
 module.exports = function (data) {
 
 	function generateTileCss() {
-		var max_width = 30;
+		var max_width = 30;	
 		var max_heigth = 16; 
 		var width = 16;
 		var height = 16;

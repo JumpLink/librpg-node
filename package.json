@@ -11,6 +11,7 @@
     "less-middleware": "*",
     "robotskirt": "*",
     "showdown": "*",
-    "fetch": "*"
+    "fetch": "*",
+    "form2json": "*"
   }
 }
