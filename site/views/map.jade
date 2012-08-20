@@ -1,40 +1,44 @@
 extends layout
 
 block content
-	.map(style="width:#{map.pxl_width}px;height:#{map.pxl_height}px;")
-		canvas#testcanvas1(width="#{map.pxl_width}", height="#{map.pxl_height}")
-			| Dein Browser kann diese Grafik nicht darstellen.
+	each map,i in maps
+		.map(style="width:#{maps[i].pxl_width}px;height:#{maps[i].pxl_height}px;")
+			- for(var l=0; l<map.layer_size; l++)
+				canvas.layer(id="canvas_#{l}", width="#{map.pxl_width}", height="#{map.pxl_height}", style="z-index:#{l}")
+					| Dein Browser kann diese Grafik nicht darstellen.
 
-	!= "<script>"
-		!= "var tiles = "+map.tiles+";"
+	!= "<script info='load_data'>"
+		!= "var tiles = ["+maps.length+"];"
+		!= "var tilesets = ["+maps.length+"];"
+		!= "var layer_size = ["+maps.length+"];"
+		!= "var pxl_width = "+maps[0].pxl_width+";"
+		!= "var pxl_height = "+maps[0].pxl_height+";"
+		each map,i in maps
+			!= "layer_size["+i+"] = ["+map.layer_size+"];"
+			!= "tiles["+i+"] = "+map.tiles+";"
+			!= "tilesets["+i+"] = ["+map.tilesets.length+"];"
+			!= "for (var t=0; t<"+map.tilesets.length+"; t++) {"
+				!= "tilesets["+i+"][t] = new Image();"
+				!= "tilesets["+i+"][t].src = '/tilesetid/'+t;"
+			!= "}"
 	!= "</script>"
 
-	script
-		var tileset = [#{map.tilesets.length}];
-		function loadTileSets() {
-			for (var t=0; t<#{map.tilesets.length}; t++) {
-				tileset[t] = new Image();
-				tileset[t].src = '/tilesetid/'+t;
-			}
-		}
-		function drawTiles() {
-			var canvas = document.getElementById('testcanvas1');
-			
-			tileset[#{map.tilesets.length}-1].onload = function(){
-				if(canvas.getContext){
-					var context = canvas.getContext('2d');
-					//console.log("map.all_layer_size "+#{map.all_layer_size});
-					//console.log("tiles[0].length "+tiles[0].length);
-					for (var l=0; l<#{map.layer_size}; l++) {
-						//console.log(l+" ");
-						for (var i=0; i<tiles[l].length; i++) {
-							//console.log(i+" ");
-							//console.log(tiles[l][i]);
-							context.drawImage(tileset[tiles[l][i].ts_id], tiles[l][i].sx, tiles[l][i].sy, #{map.tilewidth}, #{map.tileheight}, tiles[l][i].dx, tiles[l][i].dy, #{map.tilewidth}, #{map.tileheight});
+	script(info="draw_functions")
+		function drawTiles(map_id) {
+			tilesets[map_id][0].onload = function(){
+				for(var l=0; l<layer_size[map_id]; l++) {
+					var canvas = document.getElementById('canvas_'+l);
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						for(var i=0; i<tiles[map_id][l].length; i++) {
+							if(tiles[map_id][l][i].sx >= 0 && tiles[map_id][l][i].sy >= 0)
+								context.drawImage(tilesets[map_id][tiles[map_id][l][i].ts_id], tiles[map_id][l][i].sx, tiles[map_id][l][i].sy, #{tilewidth}, #{tileheight}, tiles[map_id][l][i].dx, tiles[map_id][l][i].dy, #{tilewidth}, #{tileheight});
 						}
 					}
 				}
 			}
 		}
-		loadTileSets();
-		drawTiles();
+	!= "<script info='run_draw_functions'>"
+		each map,i in maps
+			!= "drawTiles("+i+");"
+	!= "</script>"

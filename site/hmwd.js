@@ -96,7 +96,18 @@ function getMapTileSetSources(map) {
 function getMapTileImageCoordAsJsonString(map, area_l, area_x, area_y) {
 	var tiles = getMapTileImageCoord(map, area_l, area_x, area_y);
 	return getObjectAsJsonString(tiles);
-} 
+}
+
+function getMapInfo() {
+	var tilewidth = data.mapmanager.getMapFromIndex(0).tilewidth;
+	var tileheight = data.mapmanager.getMapFromIndex(0).tileheight;
+
+	var mapinfo = {
+		tilewidth : tilewidth,
+		tileheight : tileheight
+	}
+	return mapinfo;
+}
 
 function parseAllMapsForNodejs() {
 	for (var i = 0; i < data.mapmanager.length; i++) {
@@ -107,10 +118,10 @@ function parseAllMapsForNodejs() {
 			pxl_width:tmp_map.pxl_width,
 			pxl_height:tmp_map.pxl_height,
 			layer_size:tmp_map.all_layer_size,
-			tilewidth:tmp_map.tilewidth,
-			tileheight:tmp_map.tileheight,
+			//tilewidth:tmp_map.tilewidth,
+			//tileheight:tmp_map.tileheight,
 			tilesets: getTileSetImagenamesForIDs(tmp_map)
-		}
+		};
 		nodejs_maps[i]=nodejs_map;
 	};
 }
@@ -134,5 +145,6 @@ module.exports = {
 	init:init,
 	data:data,
 	nodejs_maps:nodejs_maps,
-	getNodejsMapFromFilename:getNodejsMapFromFilename
+	getNodejsMapFromFilename:getNodejsMapFromFilename,
+	getMapInfo:getMapInfo
 }

@@ -1,9 +1,13 @@
 module.exports = function (hmwd) {
 
 	function map(req, res){
+		maps = [1];
+		maps[0] =  hmwd.getNodejsMapFromFilename(req.params.name);
 		res.render('map', {
 			title: 'HMWorld - Map '+req.params.name,
-			map : hmwd.getNodejsMapFromFilename(req.params.name),
+			maps :maps,
+			tilewidth : 16, //TODO
+			tileheight : 16 //TODO
 		}); 
 	}
 
@@ -28,7 +32,7 @@ module.exports = function (hmwd) {
 			maps[i] = mapmanager.getMapFromIndex(i);
 			maps[i].download_url = "/data/map/"+maps[i].filename;
 			maps[i].nodejs_tiles = hmwd.getMapTileIds(maps[i], {from: 0, to: maps[i].all_layer_size}, {from: 0, to: width}, {from: 0, to: height})
-			maps[i].description = "This is a simle test map to test our game engine."; //TOTO move to Hmwd
+			maps[i].description = "This is a simple test map to test our game engine."; //TOTO move to Hmwd
 			maps[i].name = "Test Map"; //TOTO move to Hmwd
 			maps[i].author = "Pascal Garber"; //TOTO move to Hmwd
 			maps[i].nodejs_tileset = hmwd.getMapTileSetSources(maps[i]);
