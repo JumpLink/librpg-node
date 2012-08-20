@@ -6,21 +6,13 @@ var express = require('express')
   , routes = require('./routes')
   , http = require('http')
   , path = require('path')
-  , fs = require('fs');
+  , fs = require('fs')
+  , hmwd = require('./hmwd.js')
+  ;
 
-var Gir = require('gir');
-var Hmwd = module.exports = Gir.load('Hmwd');
-var data = new Hmwd.Data();
-data.loadTileSetManager(__dirname+"/public/data/tileset/");
-data.loadMapManager(__dirname+"/public/data/map/");
-data.loadSpriteSetManager(__dirname+"/public/data/spriteset/");
+hmwd.init();
 
-var css = require('./css.js')(data);
-css.generateTileCss();
-css.generateTileSetCss();
-
-var data_route = require('./routes/data.js')(data, Hmwd);
-
+var data_route = require('./routes/data.js')(hmwd);
 var app = express();
 
 app.configure(function(){

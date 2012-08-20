@@ -6,13 +6,13 @@ block content
 			| Dein Browser kann diese Grafik nicht darstellen.
 
 	!= "<script>"
-		!= "var tiles = "+tiles+";"
+		!= "var tiles = "+map.tiles+";"
 	!= "</script>"
 
 	script
-		var tileset = [#{tilesets.length}];
+		var tileset = [#{map.tilesets.length}];
 		function loadTileSets() {
-			for (var t=0; t<#{tilesets.length}; t++) {
+			for (var t=0; t<#{map.tilesets.length}; t++) {
 				tileset[t] = new Image();
 				tileset[t].src = '/tilesetid/'+t;
 			}
@@ -20,12 +20,12 @@ block content
 		function drawTiles() {
 			var canvas = document.getElementById('testcanvas1');
 			
-			tileset[#{tilesets.length}-1].onload = function(){
+			tileset[#{map.tilesets.length}-1].onload = function(){
 				if(canvas.getContext){
 					var context = canvas.getContext('2d');
 					//console.log("map.all_layer_size "+#{map.all_layer_size});
 					//console.log("tiles[0].length "+tiles[0].length);
-					for (var l=0; l<#{map.all_layer_size}; l++) {
+					for (var l=0; l<#{map.layer_size}; l++) {
 						//console.log(l+" ");
 						for (var i=0; i<tiles[l].length; i++) {
 							//console.log(i+" ");
