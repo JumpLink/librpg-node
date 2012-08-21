@@ -1,0 +1,64 @@
+!= "<script info='load_data'>"
+	!= "var tiles = ["+maps.length+"];"
+	!= "var tilesets = ["+maps.length+"];"
+	!= "var layer_size = ["+maps.length+"];"
+	!= "var pxl_width = "+maps[0].pxl_width+";"
+	!= "var pxl_height = "+maps[0].pxl_height+";"
+
+	!= "var area_l = ["+maps.length+"];"
+	!= "var area_x = ["+maps.length+"];"
+	!= "var area_y = ["+maps.length+"];"
+	each map,i in maps
+		!= "area_l["+i+"] = "+maps[i].area_l+";"
+		!= "area_x["+i+"] = "+maps[i].area_x+";"
+		!= "area_y["+i+"] = "+maps[i].area_y+";"
+		!= "layer_size["+i+"] = ["+map.layer_size+"];"
+		!= "tiles["+i+"] = "+map.tiles+";"
+		!= "tilesets["+i+"] = ["+map.tilesets.length+"];"
+		!= "for(var t=0; t<"+map.tilesets.length+"; t++) {"
+			!= "tilesets["+i+"][t] = new Image();"
+			!= "tilesets["+i+"][t].src = '/tilesetid/'+t;"
+		!= "}"
+!= "</script>"
+- if (typeof(area_x) === "undefined" || typeof(area_y) === "undefined")
+	script(info="draw_functions")
+		function drawTiles(map_id) {
+			tilesets[map_id][0].onload = function(){
+				for(var l=area_l[map_id].from;l<area_l[map_id].to;l++) {
+					var canvas = document.getElementById('canvas_'+l);
+					console.log(canvas);
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						for(var y=area_y[map_id].from;y<area_y[map_id].to;y++) {
+							for(var x=area_x[map_id].from;x<area_x[map_id].to;x++) {
+								if(tiles[map_id][l][x][y].sx >= 0 && tiles[map_id][l][x][y].sy >= 0)
+									context.drawImage(tilesets[map_id][tiles[map_id][l][x][y].ts_id], tiles[map_id][l][x][y].sx, tiles[map_id][l][x][y].sy, #{tilewidth}, #{tileheight}, tiles[map_id][l][x][y].dx, tiles[map_id][l][x][y].dy, #{tilewidth}, #{tileheight});
+							}
+						}
+					}
+				}
+			}
+		}
+- else 
+	script(info="draw_functions")
+		function drawTiles(map_id) {
+			tilesets[map_id][0].onload = function(){
+				for(var l=area_l[map_id].from;l<area_l[map_id].to;l++) {
+					var canvas = document.getElementById('canvas_'+l);
+					console.log(canvas);
+					if(canvas.getContext){
+						var context = canvas.getContext('2d');
+						for(var y=area_y[map_id].from;y<#{area_y.to};y++) {
+							for(var x=area_x[map_id].from;x<#{area_x.to};x++) {
+								if(tiles[map_id][l][x][y].sx >= 0 && tiles[map_id][l][x][y].sy >= 0)
+									context.drawImage(tilesets[map_id][tiles[map_id][l][x][y].ts_id], tiles[map_id][l][x][y].sx, tiles[map_id][l][x][y].sy, #{tilewidth}, #{tileheight}, tiles[map_id][l][x][y].dx, tiles[map_id][l][x][y].dy, #{tilewidth}, #{tileheight});
+							}
+						}
+					}
+				}
+			}
+		}
+!= "<script info='run_draw_functions'>"
+	each map,i in maps
+		!= "drawTiles("+i+");"
+!= "</script>"

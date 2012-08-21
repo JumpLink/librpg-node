@@ -23,26 +23,13 @@ module.exports = function (hmwd) {
 	}
 
 	function map_index(req, res){
-
-		var mapmanager = hmwd.data.mapmanager;
-		var width = 20;
-		var height = 15;
-		var maps = [];
-		for(var i=0;i<mapmanager.size;i++) {
-			maps[i] = mapmanager.getMapFromIndex(i);
-			maps[i].download_url = "/data/map/"+maps[i].filename;
-			maps[i].nodejs_tiles = hmwd.getMapTileIds(maps[i], {from: 0, to: maps[i].all_layer_size}, {from: 0, to: width}, {from: 0, to: height})
-			maps[i].description = "This is a simple test map to test our game engine."; //TOTO move to Hmwd
-			maps[i].name = "Test Map"; //TOTO move to Hmwd
-			maps[i].author = "Pascal Garber"; //TOTO move to Hmwd
-			maps[i].nodejs_tileset = hmwd.getMapTileSetSources(maps[i]);
-		}
-
 		res.render('map_index', {
 			title: 'HMWorld - Map Index',
-			maps : maps,
-			width: width,
-			height: height
+			maps : hmwd.nodejs_maps,
+			tilewidth : 16, //TODO
+			tileheight : 16, //TODO
+			area_x: {from: 0, to: 20},
+			area_y: {from: 0, to: 15},
 		}); 
 	}
 	function map_test(req, res){

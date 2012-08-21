@@ -10,47 +10,46 @@ block content
 			| with the map as attachment.
 	.row.show-grid
 		.span4
-			- for (var i=0; i<maps.length; i++)
+			each map,i in maps
 				.well
 					// filename
 					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
 						i.icon-file.icon-white
-						| #{maps[i].filename}
-					// tiles
-					a.thumbnail(id="mapinfo-#{i}",href="/map/#{maps[i].filename}")
-						.map-thumb(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px")
-							- for (var l=0; l<maps[i].nodejs_tiles.length; l++)
-								.layer(style="width:#{width*maps[i].tilewidth}px;height:#{height*maps[i].tileheight}px;z-index:#{l}")
-									- var count = 0
-									- for (var y = 0; y<height; y++)
-										- for (var x = 0; x<width; x++, count++)
-											- if (maps[i].nodejs_tiles[l][count].t_id != 0)
-											.tile(class="tid_#{maps[i].nodejs_tiles[l][count].t_id} ts_#{maps[i].nodejs_tiles[l][count].ts_id}")
+						| #{map.filename}
+					//- tiles
+					a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
+						- var tmp_width = (area_x.to - area_x.from)*tilewidth;
+						- var tmp_height = (area_y.to - area_y.from)*tileheight;
+						.map-thumb(style="width:#{tmp_width}px;height:#{tmp_height}px;")
+							- for(var l=JSON.parse(map.area_l).from;l<JSON.parse(map.area_l).to;l++)
+								canvas.layer(id="canvas_#{l}", width="#{tmp_width}", height="#{tmp_height}", style="z-index:#{l}")
+									| Dein Browser kann diese Grafik nicht darstellen.
 					// info
 					.caption
 						.tab-content
-							h5 #{maps[i].name}
-							p #{maps[i].description}
+							h5 #{map.name}
+							p #{map.description}
 							h5 Data
 							dl.dl-horizontal
 								dt name
-								dd #{maps[i].name}
+								dd #{map.name}
 								dt author
-								dd #{maps[i].author}
+								dd #{map.author}
 								dt xml version
-								dd #{maps[i].version}
+								dd #{map.version}
 								dt orientation
-								dd #{maps[i].orientation}
+								dd #{map.orientation}
 								dt tilesize
-								dd #{maps[i].tilewidth} × #{maps[i].tileheight} pixel
+								dd #{map.tilewidth} × #{map.tileheight} pixel
 								dt mapsize
-								dd #{maps[i].width} × #{maps[i].height} tiles
-								dd #{maps[i].pxl_width} × #{maps[i].pxl_height} pixel
+								dd #{map.width} × #{map.height} tiles
+								dd #{map.pxl_width} × #{map.pxl_height} pixel
 								dt tilesets
-								- for (var j=0; j<maps[i].nodejs_tileset.filename.length; j++)
-									dd: a(href="#{maps[i].nodejs_tileset.url}") #{maps[i].nodejs_tileset.filename[j]}
+								each tileset,t in map.tilesets
+									dd: a(href="/tilesetid/#{t}") #{tileset}
 						div(style="overflow:auto;")
 							.pull-right
-								a.btn.btn-success(title="Download map", href="#{maps[i].download_url}")
+								a.btn.btn-success(title="Download map", href="#{map.download_url}")
 									i.icon-download.icon-white
 									|  Download
+	include map_javascript
