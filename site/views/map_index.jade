@@ -8,47 +8,46 @@ block content
 			| If you think you have a map that fits into our game and you wish to see your own map here, please send a email to 
 			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
 			| with the map as attachment.
-	.row-fluid
-		ul.thumbnails
-			each map,i in maps
-				li.span4
-					ul.nav.nav-tabs(id="tab_#{i}")
-						li: a(href="#map_#{i}",data-toggle="tab")
-							| Map
-						li: a(href="#info_#{i}",data-toggle="tab")
-							| Info
-					.tab-content
-						.tab-pane.fade(id="map_#{i}")
-							a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
-								img(src="/data/map/thumb_#{map.filename}.png")
-						.tab-pane.fade(id="info_#{i}")
-							.caption
-								.tab-content
-									h5 #{map.name}
-									p #{map.description}
-									h5 Data
-									dl.dl-horizontal
-										dt name
-										dd #{map.name}
-										dt author
-										dd #{map.author}
-										dt xml version
-										dd #{map.version}
-										dt orientation
-										dd #{map.orientation}
-										dt tilesize
-										dd #{map.tilewidth} × #{map.tileheight} pixel
-										dt mapsize
-										dd #{map.width} × #{map.height} tiles
-										dd #{map.pxl_width} × #{map.pxl_height} pixel
-										dt tilesets
-										each tileset,t in map.tilesets
-											dd: a(href="/tilesetid/#{t}") #{tileset}
-								div(style="overflow:auto;")
-									.pull-right
-										a.btn.btn-success(title="Download map", href="#{map.download_url}")
-											i.icon-download.icon-white
-											|  Download
+	ul.thumbnails
+		each map,i in maps
+			.span4(style="padding-bottom:20px;")
+				ul.nav.nav-tabs(id="tab_#{i}")
+					li: a(href="#map_#{i}",data-toggle="tab")
+						| Map
+					li: a(href="#info_#{i}",data-toggle="tab")
+						| Info
+				.tab-content
+					.tab-pane.fade(id="map_#{i}")
+						a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
+							img(src="/data/map/thumb_#{map.filename}.png")
+					.tab-pane.fade(id="info_#{i}")
+						.caption
+							.tab-content
+								h5 #{map.name}
+								p #{map.description}
+								h5 Data
+								dl.dl-horizontal
+									dt name
+									dd #{map.name}
+									dt author
+									dd #{map.author}
+									dt xml version
+									dd #{map.version}
+									dt orientation
+									dd #{map.orientation}
+									dt tilesize
+									dd #{map.tilewidth} × #{map.tileheight} pixel
+									dt mapsize
+									dd #{map.width} × #{map.height} tiles
+									dd #{map.pxl_width} × #{map.pxl_height} pixel
+									dt tilesets
+									each tileset,t in map.tilesets
+										dd: a(href="/tilesetid/#{t}") #{tileset}
+							div(style="overflow:auto;")
+								.pull-right
+									a.btn.btn-success(title="Download map", href="#{map.download_url}")
+										i.icon-download.icon-white
+										|  Download
 	!= "<script>"
 		each map,i in maps
 			!= "$(document).ready(function(){"
