@@ -9,8 +9,8 @@ block content
 			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
 			| with the map as attachment.
 	.row.show-grid
-		.span4
-			each map,i in maps
+		each map,i in maps
+			.span4
 				.well
 					// filename
 					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
@@ -18,8 +18,8 @@ block content
 						| #{map.filename}
 					//- tiles
 					a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
-						- var tmp_width = (area_x.to - area_x.from)*tilewidth;
-						- var tmp_height = (area_y.to - area_y.from)*tileheight;
+						- var tmp_width = (JSON.parse(area_x).to - JSON.parse(area_x).from)*map.tilewidth;
+						- var tmp_height = (JSON.parse(area_y).to - JSON.parse(area_y).from)*map.tileheight;
 						.map-thumb(style="width:#{tmp_width}px;height:#{tmp_height}px;")
 							- for(var l=JSON.parse(map.area_l).from;l<JSON.parse(map.area_l).to;l++)
 								canvas.layer(id="canvas_#{l}", width="#{tmp_width}", height="#{tmp_height}", style="z-index:#{l}")

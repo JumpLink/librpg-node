@@ -5,9 +5,7 @@ module.exports = function (hmwd) {
 		maps[0] =  hmwd.getNodejsMapFromFilename(req.params.name);
 		res.render('map', {
 			title: 'HMWorld - Map '+req.params.name,
-			maps :maps,
-			tilewidth : 16, //TODO
-			tileheight : 16 //TODO
+			maps :maps
 		}); 
 	}
 
@@ -26,10 +24,8 @@ module.exports = function (hmwd) {
 		res.render('map_index', {
 			title: 'HMWorld - Map Index',
 			maps : hmwd.nodejs_maps,
-			tilewidth : 16, //TODO
-			tileheight : 16, //TODO
-			area_x: {from: 0, to: 20},
-			area_y: {from: 0, to: 15},
+			area_x: JSON.stringify({from: 0, to: 20}),
+			area_y: JSON.stringify({from: 0, to: 15})
 		}); 
 	}
 	function map_test(req, res){

@@ -5,13 +5,12 @@
 	!= "var pxl_width = "+maps[0].pxl_width+";"
 	!= "var pxl_height = "+maps[0].pxl_height+";"
 
-	!= "var area_l = ["+maps.length+"];"
-	!= "var area_x = ["+maps.length+"];"
-	!= "var area_y = ["+maps.length+"];"
+	!= "var tilewidth = ["+maps.length+"];"
+	!= "var tileheight = ["+maps.length+"];"
 	each map,i in maps
-		!= "area_l["+i+"] = "+maps[i].area_l+";"
-		!= "area_x["+i+"] = "+maps[i].area_x+";"
-		!= "area_y["+i+"] = "+maps[i].area_y+";"
+		!= "tilewidth["+i+"] = "+map.tilewidth+";"
+		!= "tileheight["+i+"] = "+map.tileheight+";"
+
 		!= "layer_size["+i+"] = ["+map.layer_size+"];"
 		!= "tiles["+i+"] = "+map.tiles+";"
 		!= "tilesets["+i+"] = ["+map.tilesets.length+"];"
@@ -20,45 +19,52 @@
 			!= "tilesets["+i+"][t].src = '/tilesetid/'+t;"
 		!= "}"
 != "</script>"
-- if (typeof(area_x) === "undefined" || typeof(area_y) === "undefined")
-	script(info="draw_functions")
-		function drawTiles(map_id) {
-			tilesets[map_id][0].onload = function(){
-				for(var l=area_l[map_id].from;l<area_l[map_id].to;l++) {
-					var canvas = document.getElementById('canvas_'+l);
-					console.log(canvas);
-					if(canvas.getContext){
-						var context = canvas.getContext('2d');
-						for(var y=area_y[map_id].from;y<area_y[map_id].to;y++) {
-							for(var x=area_x[map_id].from;x<area_x[map_id].to;x++) {
-								if(tiles[map_id][l][x][y].sx >= 0 && tiles[map_id][l][x][y].sy >= 0)
-									context.drawImage(tilesets[map_id][tiles[map_id][l][x][y].ts_id], tiles[map_id][l][x][y].sx, tiles[map_id][l][x][y].sy, #{tilewidth}, #{tileheight}, tiles[map_id][l][x][y].dx, tiles[map_id][l][x][y].dy, #{tilewidth}, #{tileheight});
-							}
-						}
+script(info="draw_functions")
+	var context;
+	var canvas;
+	function loadCanvas(area_l) {
+		context = [area_l.to - area_l.from];
+		canvas = [area_l.to - area_l.from];
+		for(var l=area_l.from;l<area_l.to;l++) {
+			canvas[l] = document.getElementById('canvas_'+l);
+			context[l] = canvas[l].getContext('2d');
+		}
+	}
+
+	function drawTiles(map_id, area_l, area_x, area_y) {
+		tilesets[map_id][0].onload=function(){
+			for(var l=area_l.from;l<area_l.to;l++) {
+				for(var y=area_y.from;y<area_y.to;y++) {
+					for(var x=area_x.from;x<area_x.to;x++) {
+						if(tiles[map_id][l][x][y].sx >= 0 && tiles[map_id][l][x][y].sy >= 0)
+							context[l].drawImage(tilesets[map_id][tiles[map_id][l][x][y].ts_id], tiles[map_id][l][x][y].sx, tiles[map_id][l][x][y].sy, tilewidth[map_id], tileheight[map_id], tiles[map_id][l][x][y].dx, tiles[map_id][l][x][y].dy, tilewidth[map_id], tileheight[map_id]);
 					}
 				}
 			}
 		}
-- else 
-	script(info="draw_functions")
-		function drawTiles(map_id) {
-			tilesets[map_id][0].onload = function(){
-				for(var l=area_l[map_id].from;l<area_l[map_id].to;l++) {
-					var canvas = document.getElementById('canvas_'+l);
-					console.log(canvas);
-					if(canvas.getContext){
-						var context = canvas.getContext('2d');
-						for(var y=area_y[map_id].from;y<#{area_y.to};y++) {
-							for(var x=area_x[map_id].from;x<#{area_x.to};x++) {
-								if(tiles[map_id][l][x][y].sx >= 0 && tiles[map_id][l][x][y].sy >= 0)
-									context.drawImage(tilesets[map_id][tiles[map_id][l][x][y].ts_id], tiles[map_id][l][x][y].sx, tiles[map_id][l][x][y].sy, #{tilewidth}, #{tileheight}, tiles[map_id][l][x][y].dx, tiles[map_id][l][x][y].dy, #{tilewidth}, #{tileheight});
-							}
-						}
-					}
+	}
+
+
+	function resize(map_id, area_l) {
+		window.onload = function() {
+			$(window).resize(function() {
+				var tmp_width = $('#mapinfo-'+map_id).width();
+				for(var l=area_l.from;l<area_l.to;l++) {
+					$("#canvas_"+l).width(tmp_width);
+					$('#mapinfo-'+map_id).height($("#canvas_"+l).height());
 				}
-			}
+			});
 		}
+	}
+
 != "<script info='run_draw_functions'>"
-	each map,i in maps
-		!= "drawTiles("+i+");"
+	!= "function draw() {"
+		each map,i in maps
+			!= "loadCanvas("+map.area_l+");"
+			- if (typeof(area_x) === "undefined")
+				!= "drawTiles("+i+", "+map.area_l+", "+map.area_x+", "+map.area_y+");"
+			- else //its a tumbnail
+				!= "drawTiles("+i+", "+map.area_l+", "+area_x+", "+area_y+");resize("+i+","+map.area_l+");"
+	!= "}"
+	!= "draw();"
 != "</script>"

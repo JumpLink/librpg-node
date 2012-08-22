@@ -115,7 +115,7 @@ function parseAllMapsForNodejs() {
 			version:  tmp_map.version,
 			orientation: tmp_map.orientation,
 			width : tmp_map.width,
-			heigth : tmp_map.heigth,
+			height : tmp_map.height,
 			tiles: getMapTileImageCoordAsJsonString(tmp_map, {from: 0, to: tmp_map.all_layer_size}, {from: 0, to: tmp_map.width},  {from: 0, to: tmp_map.height}),
 			pxl_width:tmp_map.pxl_width,
 			pxl_height:tmp_map.pxl_height,
