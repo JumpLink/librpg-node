@@ -48,18 +48,15 @@ script(info="draw_functions")
 
 
 	function resize(map_id, area_l) {
-		function resize_now () {
-			var tmp_width = $('#mapinfo-'+map_id).width();
-			for(var l=area_l.from;l<area_l.to;l++) {
-				$("#canvas_"+l).width(tmp_width);
-				$('#mapinfo-'+map_id).height($("#canvas_"+l).height());
-				$('#layer_info_bg_'+l).width(tmp_width);
-				$('#layer_info_'+l).width(tmp_width);
-				$('#map-thumb_'+l).width(tmp_width);
-				$('#map-thumb_'+l).height($("#canvas_"+l).height());
-			}
+		var tmp_width = $('#mapinfo-'+map_id).width();
+		for(var l=area_l.from;l<area_l.to;l++) {
+			$("#canvas_"+l).width(tmp_width);
+			$('#mapinfo-'+map_id).height($("#canvas_"+l).height());
+			$('#layer_info_bg_'+l).width(tmp_width);
+			$('#layer_info_'+l).width(tmp_width);
+			$('#map-thumb_'+l).width(tmp_width);
+			$('#map-thumb_'+l).height($("#canvas_"+l).height());
 		}
-		$(window).resize = resize_now;
 	}
 
 != "<script info='run_draw_functions'>"
@@ -70,11 +67,13 @@ script(info="draw_functions")
 				!= "drawTiles("+i+", "+map.area_l+", "+map.area_x+", "+map.area_y+");"
 			- else //its a tumbnail
 				!= "drawTiles("+i+", "+map.area_l+", "+area_x+", "+area_y+");" //-TODO bereits jetzt wie in resize, ohne konstante werte
-				!= "window.onload = function(){"
+				!= "$(document).ready(function(){"
+					!= "$('#tab_"+i+" a:first').tab('show');"
 					!= "resize("+i+","+map.area_l+");"
-					each map,i in maps
-						!= "$('#tab_"+i+" a:first').tab('show')"
-				!= "}"	
+				!= "});"
+				!= "$(window).resize(function(){"
+					!= "resize("+i+","+map.area_l+");"
+				!= "});"				
 	!= "}"
 	!= "draw();"
 	//- run draw after back-button
