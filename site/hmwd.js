@@ -3,6 +3,11 @@ var Gir = require('gir');
 var Hmwd_gir = module.exports = Gir.load('Hmwd');
 var data = new Hmwd_gir.Data();
 var css = require('./css.js')(data);
+var Canvas = require('canvas')
+  , Image = Canvas.Image
+  , fs = require('fs')
+  ;
+//var HmwdCanvas = require(__dirname+'/public/javascripts/canvas.js');
 
 var nodejs_maps = [];
 
@@ -108,8 +113,10 @@ function getMapTileImageCoordAsJsonString(map, area_l, area_x, area_y) {
 // }
 
 function parseAllMapsForNodejs() {
+	console.log("data.mapmanager.length:"+data.mapmanager.length);
 	for (var i = 0; i < data.mapmanager.length; i++) {
 		var tmp_map = data.mapmanager.getMapFromIndex(i);
+		console.log("tmp_map.filename:"+tmp_map.filename);
 		nodejs_map = {
 			filename: tmp_map.filename,
 			version:  tmp_map.version,
@@ -131,8 +138,43 @@ function parseAllMapsForNodejs() {
 			name : "Test Map", //TOTO move to Hmwd
 			author : "Pascal Garber", //TOTO move to Hmwd
 		};
+		generateMapTumbnail(nodejs_map);
 		nodejs_maps[i]=nodejs_map;
 	};
+}
+
+function generateMapTumbnail(map) {
+	var area_l = JSON.parse(map.area_l);
+	var area_x = {from: 0, to: 20};
+	var area_y = {from: 0, to: 15};
+	var tilesets = [map.tilesets.length];
+	var tiles = JSON.parse(map.tiles);
+	var width = (area_x.to - area_x.from)*map.tilewidth;
+	var height = (area_y.to - area_y.from)*map.tileheight;
+	var canvas = new Canvas(width, height);
+	var context = canvas.getContext('2d');
+	//console.log("tiles");
+	//console.log(tiles);
+	for(var t=0;t<map.tilesets.length;t++){
+		tilesets[t] = new Image;
+		tilesets[t].src = fs.readFileSync(__dirname + '/public/data/tileset/'+map.tilesets[t]);
+	}
+	console.log("tilesets");
+	console.log(tilesets);
+	for(var l=area_l.from;l<area_l.to;l++) {
+		for(var y=area_y.from;y<area_y.to;y++) {
+			for(var x=area_x.from;x<area_x.to;x++) {
+				if(tiles[l][x][y].sx >= 0 && tiles[l][x][y].sy >= 0)
+					context.drawImage(tilesets[tiles[l][x][y].ts_id], tiles[l][x][y].sx, tiles[l][x][y].sy, map.tilewidth, map.tileheight, tiles[l][x][y].dx, tiles[l][x][y].dy, map.tilewidth, map.tileheight);
+			}
+		}
+	}
+	var out = fs.createWriteStream(__dirname +'/public/data/map/thumb_'+ map.filename+".png")
+	  , stream = canvas.createPNGStream();
+
+	stream.on('data', function(chunk){
+	  out.write(chunk);
+	});
 }
 
 function getNodejsMapFromFilename(filename) {

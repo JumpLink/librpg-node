@@ -8,32 +8,29 @@ block content
 			| If you think you have a map that fits into our game and you wish to see your own map here, please send a email to 
 			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
 			| with the map as attachment.
-	.row.show-grid
-		each map,i in maps
-			.span4
-				span
+	.row-fluid
+		ul.thumbnails
+			each map,i in maps
+				li.span4
 					ul.nav.nav-tabs(id="tab_#{i}")
-						li: a(href="#map",data-toggle="tab")
+						li: a(href="#map_#{i}",data-toggle="tab")
 							| Map
-						li: a(href="#info",data-toggle="tab")
+						li: a(href="#info_#{i}",data-toggle="tab")
 							| Info
 					.tab-content
-						.tab-pane.fade#map
+						.tab-pane.fade(id="map_#{i}")
 							a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
 								- var tmp_width = (JSON.parse(area_x).to - JSON.parse(area_x).from)*map.tilewidth;
 								- var tmp_height = (JSON.parse(area_y).to - JSON.parse(area_y).from)*map.tileheight;
 								.map-thumb((id="map-thumb_#{i}",style="width:#{tmp_width}px;height:#{tmp_height}px;")
-									- for(var l=JSON.parse(map.area_l).from;l<JSON.parse(map.area_l).to;l++)
-										canvas.layer(id="canvas_#{l}", width="#{tmp_width}", height="#{tmp_height}", style="z-index:#{l}")
-											| Dein Browser kann diese Grafik nicht darstellen.
-									- var layer_size = (JSON.parse(map.area_l).to - JSON.parse(map.area_l).from);
-									.layer.layer_info_bg(id="layer_info_bg_#{i}",style="width:#{tmp_width}px;z-index:#{layer_size};")
-									.layer.layer_info(id="layer_info_#{i}",style="width:#{tmp_width}px;z-index:#{layer_size+1};")
+									img.layer(src="/data/map/thumb_#{map.filename}.png")
+									.layer.layer_info_bg(id="layer_info_bg_#{i}",style="width:#{tmp_width}px;")
+									.layer.layer_info(id="layer_info_#{i}",style="width:#{tmp_width}px;")
 										strong.pull-left.inner_layer_info
 											| #{map.filename}
 										small.pull-right.inner_layer_info
 											| #{map.width} × #{map.height}
-						.tab-pane.fade#info
+						.tab-pane.fade(id="info_#{i}")
 							.caption
 								.tab-content
 									h5 #{map.name}
@@ -61,4 +58,9 @@ block content
 										a.btn.btn-success(title="Download map", href="#{map.download_url}")
 											i.icon-download.icon-white
 											|  Download
-	include map_javascript
+	!= "<script>"
+		each map,i in maps
+			!= "$(document).ready(function(){"
+				!= "$('#tab_"+i+" a:first').tab('show');"
+			!= "});"
+	!= "</script>"
