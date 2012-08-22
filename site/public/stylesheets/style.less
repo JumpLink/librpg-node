@@ -3,6 +3,9 @@
 @import "tile.less";
 @import "tileset.less";
 
+@iconSpritePath:          "../images/glyphicons-halflings.png";
+@iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png";
+
 @media (min-width: 1200px) {
   body {
     padding-top: 60px;
@@ -62,4 +65,15 @@ html,body {
 }
 .layer {
   position: absolute;
+}
+.layer_info_bg {
+  height:30px;
+  background-color:black;
+  opacity:0.5;
+}
+.layer_info {
+  color:white;
+}
+.inner_layer_info {
+  padding: 5px;
 }

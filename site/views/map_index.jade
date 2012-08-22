@@ -12,44 +12,53 @@ block content
 		each map,i in maps
 			.span4
 				.well
-					// filename
-					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
-						i.icon-file.icon-white
-						| #{map.filename}
-					//- tiles
-					a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
-						- var tmp_width = (JSON.parse(area_x).to - JSON.parse(area_x).from)*map.tilewidth;
-						- var tmp_height = (JSON.parse(area_y).to - JSON.parse(area_y).from)*map.tileheight;
-						.map-thumb(style="width:#{tmp_width}px;height:#{tmp_height}px;")
-							- for(var l=JSON.parse(map.area_l).from;l<JSON.parse(map.area_l).to;l++)
-								canvas.layer(id="canvas_#{l}", width="#{tmp_width}", height="#{tmp_height}", style="z-index:#{l}")
-									| Dein Browser kann diese Grafik nicht darstellen.
-					// info
-					.caption
-						.tab-content
-							h5 #{map.name}
-							p #{map.description}
-							h5 Data
-							dl.dl-horizontal
-								dt name
-								dd #{map.name}
-								dt author
-								dd #{map.author}
-								dt xml version
-								dd #{map.version}
-								dt orientation
-								dd #{map.orientation}
-								dt tilesize
-								dd #{map.tilewidth} × #{map.tileheight} pixel
-								dt mapsize
-								dd #{map.width} × #{map.height} tiles
-								dd #{map.pxl_width} × #{map.pxl_height} pixel
-								dt tilesets
-								each tileset,t in map.tilesets
-									dd: a(href="/tilesetid/#{t}") #{tileset}
-						div(style="overflow:auto;")
-							.pull-right
-								a.btn.btn-success(title="Download map", href="#{map.download_url}")
-									i.icon-download.icon-white
-									|  Download
+					ul.nav.nav-tabs(id="tab_#{i}")
+						li: a(href="#map",data-toggle="tab")
+							| Map
+						li: a(href="#info",data-toggle="tab")
+							| Info
+					.tab-content
+						.tab-pane.fade#map
+							a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
+								- var tmp_width = (JSON.parse(area_x).to - JSON.parse(area_x).from)*map.tilewidth;
+								- var tmp_height = (JSON.parse(area_y).to - JSON.parse(area_y).from)*map.tileheight;
+								.map-thumb((id="map-thumb_#{i}",style="width:#{tmp_width}px;height:#{tmp_height}px;")
+									- for(var l=JSON.parse(map.area_l).from;l<JSON.parse(map.area_l).to;l++)
+										canvas.layer(id="canvas_#{l}", width="#{tmp_width}", height="#{tmp_height}", style="z-index:#{l}")
+											| Dein Browser kann diese Grafik nicht darstellen.
+									- var layer_size = (JSON.parse(map.area_l).to - JSON.parse(map.area_l).from);
+									.layer.layer_info_bg(id="layer_info_bg_#{i}",style="width:#{tmp_width}px;z-index:#{layer_size};")
+									.layer.layer_info(id="layer_info_#{i}",style="width:#{tmp_width}px;z-index:#{layer_size+1};")
+										strong.pull-left.inner_layer_info
+											| #{map.filename}
+										small.pull-right.inner_layer_info
+											| #{map.width} × #{map.height}
+						.tab-pane.fade#info
+							.caption
+								.tab-content
+									h5 #{map.name}
+									p #{map.description}
+									h5 Data
+									dl.dl-horizontal
+										dt name
+										dd #{map.name}
+										dt author
+										dd #{map.author}
+										dt xml version
+										dd #{map.version}
+										dt orientation
+										dd #{map.orientation}
+										dt tilesize
+										dd #{map.tilewidth} × #{map.tileheight} pixel
+										dt mapsize
+										dd #{map.width} × #{map.height} tiles
+										dd #{map.pxl_width} × #{map.pxl_height} pixel
+										dt tilesets
+										each tileset,t in map.tilesets
+											dd: a(href="/tilesetid/#{t}") #{tileset}
+								div(style="overflow:auto;")
+									.pull-right
+										a.btn.btn-success(title="Download map", href="#{map.download_url}")
+											i.icon-download.icon-white
+											|  Download
 	include map_javascript
