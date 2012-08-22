@@ -32,7 +32,7 @@ script(info="draw_functions")
 	}
 
 	function drawTiles(map_id, area_l, area_x, area_y) {
-		tilesets[map_id][0].onload=function(){
+		function draw(){
 			for(var l=area_l.from;l<area_l.to;l++) {
 				for(var y=area_y.from;y<area_y.to;y++) {
 					for(var x=area_x.from;x<area_x.to;x++) {
@@ -42,6 +42,8 @@ script(info="draw_functions")
 				}
 			}
 		}
+		tilesets[map_id][0].onload=draw;
+		window.onload=draw;
 	}
 
 
@@ -67,4 +69,6 @@ script(info="draw_functions")
 				!= "drawTiles("+i+", "+map.area_l+", "+area_x+", "+area_y+");resize("+i+","+map.area_l+");"
 	!= "}"
 	!= "draw();"
+	//- run draw after back-button
+	!= "window.onunload = function(){};"
 != "</script>"
