@@ -20,16 +20,7 @@ block content
 					.tab-content
 						.tab-pane.fade(id="map_#{i}")
 							a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
-								- var tmp_width = (JSON.parse(area_x).to - JSON.parse(area_x).from)*map.tilewidth;
-								- var tmp_height = (JSON.parse(area_y).to - JSON.parse(area_y).from)*map.tileheight;
-								.map-thumb((id="map-thumb_#{i}",style="width:#{tmp_width}px;height:#{tmp_height}px;")
-									img.layer(src="/data/map/thumb_#{map.filename}.png")
-									.layer.layer_info_bg(id="layer_info_bg_#{i}",style="width:#{tmp_width}px;")
-									.layer.layer_info(id="layer_info_#{i}",style="width:#{tmp_width}px;")
-										strong.pull-left.inner_layer_info
-											| #{map.filename}
-										small.pull-right.inner_layer_info
-											| #{map.width} × #{map.height}
+								img(src="/data/map/thumb_#{map.filename}.png")
 						.tab-pane.fade(id="info_#{i}")
 							.caption
 								.tab-content

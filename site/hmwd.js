@@ -138,20 +138,20 @@ function parseAllMapsForNodejs() {
 			name : "Test Map", //TOTO move to Hmwd
 			author : "Pascal Garber", //TOTO move to Hmwd
 		};
-		generateMapTumbnail(nodejs_map);
+		generateMapThumbnail(nodejs_map);
 		nodejs_maps[i]=nodejs_map;
 	};
 }
 
-function generateMapTumbnail(map) {
+function generateMapThumbnail(map) {
 	var area_l = JSON.parse(map.area_l);
-	var area_x = {from: 0, to: 20};
+	var area_x = {from: 0, to: 23};
 	var area_y = {from: 0, to: 15};
 	var tilesets = [map.tilesets.length];
 	var tiles = JSON.parse(map.tiles);
 	var width = (area_x.to - area_x.from)*map.tilewidth;
 	var height = (area_y.to - area_y.from)*map.tileheight;
-	var canvas = new Canvas(width, height);
+	var canvas = new Canvas(360, height);
 	var context = canvas.getContext('2d');
 	//console.log("tiles");
 	//console.log(tiles);
@@ -169,6 +169,16 @@ function generateMapTumbnail(map) {
 			}
 		}
 	}
+	context.fillStyle = 'rgba(0,0,0,0.5)';
+	context.fillRect(0,0,width,30);
+
+	context.fillStyle = 'white';
+	context.font = 'bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.fillText(map.filename, 5, 20);
+
+	context.font = 'normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.fillText(map.width+" × "+map.height, width-68, 20);
+
 	var out = fs.createWriteStream(__dirname +'/public/data/map/thumb_'+ map.filename+".png")
 	  , stream = canvas.createPNGStream();
 
