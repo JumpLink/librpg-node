@@ -1,4 +1,3 @@
-var GoogleAPI = new GooglePlusAPI('<Your-API-Key-Here>');
 module.exports = function (hmwd) {
 
 	function map(req, res){
