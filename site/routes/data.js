@@ -1,11 +1,20 @@
+var GoogleAPI = new GooglePlusAPI('<Your-API-Key-Here>');
 module.exports = function (hmwd) {
 
 	function map(req, res){
-		maps = [1];
+		var maps = [1];
 		maps[0] =  hmwd.getNodejsMapFromFilename(req.params.name);
 		res.render('map', {
 			title: 'HMWorld - Map '+req.params.name,
 			maps :maps
+		}); 
+	}
+
+	function map_info(req, res){
+		var map = hmwd.getNodejsMapFromFilename(req.params.name);
+		res.render('map_info', {
+			title: 'HMWorld - Map Info '+map.name,
+			map : hmwd.getNodejsMapFromFilename(req.params.name)
 		}); 
 	}
 
@@ -23,24 +32,9 @@ module.exports = function (hmwd) {
 	function map_index(req, res){
 		res.render('map_index', {
 			title: 'HMWorld - Map Index',
-			maps : hmwd.nodejs_maps,
-			area_x: JSON.stringify({from: 0, to: 20}),
-			area_y: JSON.stringify({from: 0, to: 15})
+			maps : hmwd.nodejs_maps
 		}); 
 	}
-	function map_test(req, res){
-		var tex = hmwd.data.mapmanager.getFromFilename("testmap.tmx").getLayerFromName("under hero 1").getTileXY(0,0).tex;
-
-		var png_buffer_nodejs = [tex.png_length];
-		//console.log("png_length: "+tex.png_length);
-		for (var i = 0; i < tex.png_length; i++) {
-			png_buffer_nodejs[i] = tex.get_pngbuffer_from_index(i);
-		};
-		var buf = new Buffer(png_buffer_nodejs);
-		res.type('png');
-		res.send(buf);
-	}
-
 
 	function tileset_id(req, res){
 		var tilesetmanager = hmwd.data.tilesetmanager;
@@ -95,9 +89,9 @@ module.exports = function (hmwd) {
 	return {
 		map : map,
 		map_index : map_index,
+		map_info : map_info,
 		tileset_index: tileset_index,
 		spriteset_index: spriteset_index,
-		map_test:map_test,
 		maptile:maptile,
 		tileset_id:tileset_id
 	}

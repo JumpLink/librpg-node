@@ -35,7 +35,8 @@ app.configure('development', function(){
 app.get('/', routes.index);
 app.get('/map', data_route.map_index);
 app.get('/maptest', data_route.map_test);
-app.get('/map/:name', data_route.map);
+app.get('/map/:name', data_route.map_info);
+app.get('/map/full/:name', data_route.map);
 app.get('/map/:mapname/layername/:layername/tile/:x/:y', data_route.maptile);
 app.get('/tileset', data_route.tileset_index);
 app.get('/tilesetid/:id', data_route.tileset_id);

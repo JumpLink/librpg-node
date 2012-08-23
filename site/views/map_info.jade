@@ -1,0 +1,29 @@
+extends layout
+
+block content
+	h1= map.name
+	.row-fluid
+		.span4
+			a.thumbnail(id="mapinfo-0	",href="/map/full/#{map.filename}")
+				img(src="/data/map/thumb_#{map.filename}.png")
+		.span4
+			p #{map.description}
+			dl.dl-horizontal
+				dt xml version
+				dd #{map.version}
+				dt orientation
+				dd #{map.orientation}
+				dt tilesize
+				dd #{map.tilewidth} × #{map.tileheight} pixel
+				dt mapsize
+				dd #{map.pxl_width} × #{map.pxl_height} pixel
+				dt tilesets
+				each tileset,t in map.tilesets
+					dd: a(href="/tilesetid/#{t}") #{tileset}
+			div(style="overflow:auto;")
+				.pull-right
+					a.btn.btn-success(title="Download map", href="#{map.download_url}")
+						i.icon-download.icon-white
+						|  Download
+		.span4
+			| Comments work in progress..
