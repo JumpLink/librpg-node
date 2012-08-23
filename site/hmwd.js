@@ -173,10 +173,10 @@ function generateMapThumbnail(map) {
 	context.fillRect(0,0,width,30);
 
 	context.fillStyle = 'white';
-	context.font = 'bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.font = 'bold 14px Arial, sans-serif';
 	context.fillText(map.filename, 5, 20);
 
-	context.font = 'normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.font = 'normal 12px Arial, sans-serif';
 	context.fillText(map.width+" × "+map.height, width-68, 20);
 
 	var out = fs.createWriteStream(__dirname +'/public/data/map/thumb_'+ map.filename+".png")
