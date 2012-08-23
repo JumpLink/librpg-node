@@ -11,8 +11,8 @@ block content
 	ul.thumbnails
 		each map,i in maps
 			.span4(style="padding-bottom:20px;")
-				.tab-bordered.thumbnail
-					ul.btn-group(id="tab_#{i}")
+				.tab-bordered
+					ul.btn-group.tab-button-group(id="tab_#{i}")
 						a.btn.btn-success.btn-tab(href="#map_#{i}",data-toggle="tab")
 							| Map
 						a.btn.btn-info.btn-tab(href="#info_#{i}",data-toggle="tab")
