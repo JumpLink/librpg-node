@@ -170,14 +170,16 @@ function generateMapThumbnail(map) {
 		}
 	}
 	context.fillStyle = 'rgba(0,0,0,0.5)';
-	context.fillRect(0,0,width,30);
+	context.fillRect(0,0,width,30); //black transparent box on top
+	context.fillRect(0,height-30,width,height);  //black transparent box on bottom
 
 	context.fillStyle = 'white';
-	context.font = 'bold 14px Arial, sans-serif';
-	context.fillText(map.filename, 5, 20);
+	context.font = 'bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.fillText(map.filename+" - "+map.name, 5, 20);	//left text for box on top
 
-	context.font = 'normal 12px Arial, sans-serif';
-	context.fillText(map.width+" × "+map.height, width-68, 20);
+	context.font = 'normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.fillText(map.width+" × "+map.height+" tiles", width-95, 20); //right text for box on top
+	context.fillText(map.author, 5, height-12); //left text for box on bottom
 
 	var out = fs.createWriteStream(__dirname +'/public/data/map/thumb_'+ map.filename+".png")
 	  , stream = canvas.createPNGStream();

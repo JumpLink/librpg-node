@@ -26,10 +26,6 @@ block content
 								.tab-content
 									p #{map.description}
 									dl.dl-horizontal
-										dt name
-										dd #{map.name}
-										dt author
-										dd #{map.author}
 										dt xml version
 										dd #{map.version}
 										dt orientation
@@ -37,7 +33,6 @@ block content
 										dt tilesize
 										dd #{map.tilewidth} × #{map.tileheight} pixel
 										dt mapsize
-										dd #{map.width} × #{map.height} tiles
 										dd #{map.pxl_width} × #{map.pxl_height} pixel
 										dt tilesets
 										each tileset,t in map.tilesets
