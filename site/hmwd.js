@@ -174,10 +174,10 @@ function generateMapThumbnail(map) {
 	context.fillRect(0,height-30,width,height);  //black transparent box on bottom
 
 	context.fillStyle = 'white';
-	context.font = 'bold 14px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.font = 'bold 14px "Ubuntu Beta", UbuntuBeta, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, sans-serif';
 	context.fillText(map.filename+" - "+map.name, 5, 20);	//left text for box on top
 
-	context.font = 'normal 12px "Helvetica Neue", Helvetica, Arial, sans-serif';
+	context.font = 'normal 12px "Ubuntu Beta", UbuntuBeta, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, sans-serif';
 	context.fillText(map.width+" × "+map.height+" tiles", width-95, 20); //right text for box on top
 	context.fillText(map.author, 5, height-12); //left text for box on bottom
 
