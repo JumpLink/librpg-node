@@ -26,11 +26,12 @@ block content
 					a.btn.btn-success(title="Download map", href="#{map.download_url}")
 						i.icon-download.icon-white
 						|  Download
-		.span12
-			#comments
-				h2 Comments
-					small  To write a comment please use 
-						a(href="#{map.gplus_link}") Google+
+		- if (typeof(map.activityId) !== 'undefined' && map.activityId !== null)				
+			.span12
+				#comments
+					h2 Comments
+						small  To write a comment please use 
+							a(href="#{map.gplus_link}") Google+
 	- if (typeof(map.activityId) !== 'undefined' && map.activityId !== null)
 		script
 			function makeRequest() {
