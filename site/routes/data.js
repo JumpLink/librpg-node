@@ -72,21 +72,57 @@ module.exports = function (hmwd) {
 
 		var spritesetmanager = hmwd.data.spritesetmanager;
 		var spritesets = [];
+		var animations = [];
+		function load_animations(ani, width, height) {
+			var animation = [];
+			console.log("animationdata.size: "+ani.size);
+			console.log("width: "+width);
+			console.log("height: "+height);
+			for (var i = 0; i < ani.size; i++) {
+				//TODO repeat or not?
+				console.log(ani.get_AnimationData().to_string_for_split('|'));
+				animation[i] = ani.get_AnimationData().to_string_for_split('|').split('|');
+				animation[i][0]*=width;
+				animation[i][1]*=height;
+				ani.time();
+				console.log(animation[i]);
+			};
+			return animation;
+		}
+		//var image_filename = [];
 		for(var i=0;i<spritesetmanager.size;i++) {
 			spritesets[i] = spritesetmanager.getFromIndex(i);
-			console.log(spritesets[i].name);
+			spritesets[i].set_Animation_from_string("go","south");
+			//console.log(spritesets[i].name);
 			spritesets[i].url = "/data/spriteset/"+spritesets[i].filename.replace(new RegExp(" ","g"), '%20');
 			spritesets[i].description = "This is a test spriteset to test this site."; //TOTO move to Hmwd
 			spritesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
 			spritesets[i].name = "test "+i; //TODO1 i = 1, move to Hmwd
+			animations[i] = load_animations(spritesets[i].current_animation, spritesets[i].spritewidth, spritesets[i].spriteheight);
+			//animations[i] = spritesets[i].current_animation.get_AnimationData().to_string_for_split('|');
+			//console.log(animations[i]);
+			//animations[i] = animations[i].split('|');
+			//console.log(animations[i]);
+			
+			//image_filename[i] = spritesets[i].get_baseLayer().image_filename;
+			//spritesets[i].current_animation.get_AnimationData().to_string_for_split('|')
 		}
-		console.log("spritesetmanager.length "+ spritesetmanager.size);
+		//console.log("spritesetmanager.length "+ spritesetmanager.size);
 		res.render('spriteset_index', {
 			title: 'HMWorld - SpriteSet Index',
 			spritesets : spritesets,
+			animations : hmwd.getObjectAsJsonString(animations)
+			//image_filename : image_filename,
 		}); 
 	}
 
+	function spriteset_layer(req, res){
+		var spritesetmanager = hmwd.data.spritesetmanager;
+		var spriteset = spritesetmanager.getFromFilename(req.params.spriteset_name);
+		var filename =  spriteset.get_spritelayers_from_index(req.params.layer_index).image_filename;
+		var url = "/data/spriteset/"+filename;
+		res.sendfile(url, {root: __dirname+"/../public"});
+	}
 	return {
 		map : map,
 		map_index : map_index,
@@ -94,7 +130,8 @@ module.exports = function (hmwd) {
 		tileset_index: tileset_index,
 		spriteset_index: spriteset_index,
 		maptile:maptile,
-		tileset_id:tileset_id
+		tileset_id:tileset_id,
+		spriteset_layer:spriteset_layer
 	}
 }
 

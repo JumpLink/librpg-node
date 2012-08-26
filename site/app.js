@@ -42,6 +42,7 @@ app.get('/map/:mapname/layername/:layername/tile/:x/:y', data_route.maptile);
 app.get('/tileset', data_route.tileset_index);
 app.get('/tilesetid/:id', data_route.tileset_id);
 app.get('/spriteset', data_route.spriteset_index);
+app.get('/spriteset/:spriteset_name/:layer_index', data_route.spriteset_layer);
 app.get('/dialog', routes.work);
 app.get('/dev', routes.work);
 

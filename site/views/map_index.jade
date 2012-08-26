@@ -48,10 +48,3 @@ block content
 				!= "$('#tab_"+i+" a:first').tab('show');"
 			!= "});"
 	!= "</script>"
-	script
-		gapi.client.load('plus', 'v1', function() {
-			console.log('loaded.');
-		});
-		gapi.client.setApiKey('AIzaSyBRcYBOK7ZYUECeEMlbFkIwfTji6EpSMnc');
-		var request = gapi.client.plus.activities.search({'query': 'Google+', 'orderBy': 'best'});
-		request.execute(function(resp) { console.log(resp); });

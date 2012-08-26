@@ -17,9 +17,10 @@ block content
 						i.icon-file.icon-white
 						| #{spritesets[i].filename}
 					// tiles
-					a.thumbnail(id="spritesetinfo-#{i}",href="#{spritesets[i].url}")
-						//img(src="#{spritesets[i].url}",alt="#{spritesets[i].filename}")
-						p work in progress..
+					a.thumbnail(id="spritesetinfo-#{i}",href="/spriteset/#{spritesets[i].filename}/0", style="width:#{spritesets[i].spritewidth}px;height:#{spritesets[i].spriteheight}px;")
+						- var l = i; //- TODO
+						div(class="sprite_#{i}")
+							canvas.layer(id="canvas_#{l}", width="#{spritesets[i].spritewidth}", height="#{spritesets[i].spriteheight}", style="z-index:100")
 					.caption
 						.tab-content
 							h5 #{spritesets[i].name}
@@ -35,3 +36,34 @@ block content
 								a.btn.btn-success(title="Download spriteset", href="#{spritesets[i].url}")
 									i.icon-download.icon-white
 									|  Download
+
+				script
+					function draw_sprite_#{i}() {
+						var canvas = document.getElementById('canvas_#{i}');
+						var context = canvas.getContext('2d');
+						var sprite = new Image();
+						var animation = !{animations};
+						console.log(animation);
+						sprite.src = "/spriteset/#{spritesets[i].filename}/0";
+						var current_ani_index = 0;
+						function draw() {
+							context.clearRect(0,0,#{spritesets[i].spritewidth},#{spritesets[i].spriteheight});
+							context.drawImage(sprite, animation[#{i}][current_ani_index][0], animation[#{i}][current_ani_index][1], #{spritesets[i].spritewidth}, #{spritesets[i].spriteheight}, 0, 0, #{spritesets[i].spritewidth}, #{spritesets[i].spriteheight});
+						}
+						function time_#{i}() {
+							draw();
+							console.log(current_ani_index);
+							console.log(animation[#{i}].length);
+							if(current_ani_index < animation[#{i}].length-1) {
+								current_ani_index++;
+							} else {
+								current_ani_index = 0;
+							}
+
+						}
+						sprite.onload = function() {
+							window.setInterval(time_#{i},60000/(60*3));
+						}
+					}
+					draw_sprite_#{i}();
+					
