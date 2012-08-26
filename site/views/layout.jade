@@ -5,13 +5,16 @@ html
     title= title
     meta(name="viewport", content="width=device-width, initial-scale=1.0")
     link(rel='stylesheet', href='/stylesheets/style.css')
-  script(src='http://code.jquery.com/jquery-1.7.2.min.js')
+  //-script(src='http://code.jquery.com/jquery-1.7.2.min.js')
+  script(src='http://code.jquery.com/jquery.min.js')
   body
     include navbar
     .container
       block content
     include forkme
-  //bootstrap
+  //- google
+  script(src='https://apis.google.com/js/client.js?onload=load')
+  //- bootstrap
   script(src='/javascripts/bootstrap-tooltip.js')
   script(src='/javascripts/bootstrap-alert.js')
   script(src='/javascripts/bootstrap-button.js')

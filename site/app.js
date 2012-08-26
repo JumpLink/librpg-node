@@ -8,6 +8,7 @@ var express = require('express')
   , path = require('path')
   , fs = require('fs')
   , hmwd = require('./hmwd.js')
+  , conf = require('./config/config.js')
   ;
 
 hmwd.init();

@@ -3,10 +3,11 @@ extends layout
 block content
 	h1= map.name
 	.row-fluid
-		.span4
+		.span6
 			a.thumbnail(id="mapinfo-0	",href="/map/full/#{map.filename}")
 				img(src="/data/map/thumb_#{map.filename}.png")
-		.span4
+		.span6
+			h2 Details
 			p #{map.description}
 			dl.dl-horizontal
 				dt xml version
@@ -25,5 +26,30 @@ block content
 					a.btn.btn-success(title="Download map", href="#{map.download_url}")
 						i.icon-download.icon-white
 						|  Download
-		.span4
-			| Comments work in progress..
+		.span12
+			#comments
+				h2 Comments
+					small  To write a comment please use 
+						a(href="#{map.gplus_link}") Google+
+	- if (typeof(map.activityId) !== 'undefined' && map.activityId !== null)
+		script
+			function makeRequest() {
+				console.log('loaded');
+				var request = gapi.client.plus.comments.list({'activityId': '#{map.activityId}'});
+				request.execute(function(resp) {
+					console.log(resp);
+					jQuery.each(resp.items, function(i, item) {
+						var actor_img = "<img class='actor_img' src='"+item.actor.image.url+"'></img>";
+						var actor_name = "<div class='actor_name'>"+item.actor.displayName+"</div>";
+						var actor_link = "<a class='actor_link' href='"+item.actor.url+"'>"+actor_img+actor_name+"</a>";
+						var actor = "<div class='actor'>"+actor_link+"</div>"
+						var comment_content = "<div class='comment_content'>"+item.object.content+"</div>";
+						var comment = "<div class='comment span12'>"+actor+comment_content+"</div>";
+						$("#comments").append(comment);
+					});
+				});
+			}
+			function load() {
+				gapi.client.setApiKey('#{key}');
+				gapi.client.load('plus', 'v1', makeRequest);
+			}

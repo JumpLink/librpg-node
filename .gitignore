@@ -11,6 +11,7 @@ lib-cov
 tile.less
 tileset.less
 thumb*.png
+*.json
 
 pids
 logs

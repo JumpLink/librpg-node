@@ -12,6 +12,7 @@
     "showdown": "*",
     "fetch": "*",
     "canvas": "*",
-    "form2json": "*"
+    "form2json": "*",
+    "git://github.com/bnoguchi/everyauth.git#express3": "*"
   }
 }

@@ -1,3 +1,4 @@
+var conf = require(__dirname+'/../config/config.js');
 module.exports = function (hmwd) {
 
 	function map(req, res){
@@ -13,7 +14,8 @@ module.exports = function (hmwd) {
 		var map = hmwd.getNodejsMapFromFilename(req.params.name);
 		res.render('map_info', {
 			title: 'HMWorld - Map Info '+map.name,
-			map : hmwd.getNodejsMapFromFilename(req.params.name)
+			map : hmwd.getNodejsMapFromFilename(req.params.name),
+			key: conf.google.key
 		}); 
 	}
 

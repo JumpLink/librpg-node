@@ -1,15 +1,15 @@
-var form2json = require('form2json');
-var Gir = require('gir');
-var Hmwd_gir = module.exports = Gir.load('Hmwd');
-var data = new Hmwd_gir.Data();
-var css = require('./css.js')(data);
-var Canvas = require('canvas')
+var form2json = require('form2json')
+  , Gir = require('gir')
+  , Hmwd_gir = module.exports = Gir.load('Hmwd')
+  , data = new Hmwd_gir.Data()
+  , css = require('./css.js')(data)
+  , Canvas = require('canvas')
   , Image = Canvas.Image
   , fs = require('fs')
+  , nodejs_maps = []
   ;
 //var HmwdCanvas = require(__dirname+'/public/javascripts/canvas.js');
 
-var nodejs_maps = [];
 
 function init() {
 	data.loadTileSetManager(__dirname+"/public/data/tileset/");
@@ -138,6 +138,10 @@ function parseAllMapsForNodejs() {
 			name : "Test Map", //TOTO move to Hmwd
 			author : "Pascal Garber", //TOTO move to Hmwd
 		};
+		if(nodejs_map.filename == 'testmap.tmx') { //TODO with iriscouch.com
+			nodejs_map.activityId = 'z13fglp41ov0wpqkw22sc3booyj2v54hg04';
+			nodejs_map.gplus_link = 'https://plus.google.com/b/113975431121027814056/113975431121027814056/posts/5oW2JMxYXCR';
+		}
 		generateMapThumbnail(nodejs_map);
 		nodejs_maps[i]=nodejs_map;
 	};
