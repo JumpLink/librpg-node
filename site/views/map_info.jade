@@ -39,12 +39,13 @@ block content
 				request.execute(function(resp) {
 					console.log(resp);
 					jQuery.each(resp.items, function(i, item) {
-						var actor_img = "<img class='actor_img' src='"+item.actor.image.url+"'></img>";
-						var actor_name = "<div class='actor_name'>"+item.actor.displayName+"</div>";
-						var actor_link = "<a class='actor_link' href='"+item.actor.url+"'>"+actor_img+actor_name+"</a>";
-						var actor = "<div class='actor'>"+actor_link+"</div>"
+						var actor_img = "<a class='actor_img' href='"+item.actor.url+"'><img class='actor_img' src='"+item.actor.image.url+"'></img></a>";
+						var actor_name = "<a class='actor_name' href='"+item.actor.url+"'>"+item.actor.displayName+"</a>";
+						var timeago = moment(item.published, "YYYY-MM-DDTHH:mm:ss.Z").calendar();
+						var published = "<span class='published'>"+timeago+"</span>";
+						var comment_info = "<div class='comment_info'>"+actor_name+published+"</div>";
 						var comment_content = "<div class='comment_content'>"+item.object.content+"</div>";
-						var comment = "<div class='comment span12'>"+actor+comment_content+"</div>";
+						var comment = "<div class='comment'>"+actor_img+comment_info+comment_content+"</div>";
 						$("#comments").append(comment);
 					});
 				});
