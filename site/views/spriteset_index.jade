@@ -10,60 +10,31 @@ block content
 			| with the spriteset as attachment.
 	.row.show-grid
 		.span4
-			- for (var i=0; i<spritesets.length; i++)
+			each sprite, i in sprites
 				.well
 					// filename
 					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
 						i.icon-file.icon-white
-						| #{spritesets[i].filename}
+						| #{sprite.spriteset.filename}
 					// tiles
-					a.thumbnail(id="spritesetinfo-#{i}",href="/spriteset/#{spritesets[i].filename}/0", style="width:#{spritesets[i].spritewidth}px;height:#{spritesets[i].spriteheight}px;")
+					a.thumbnail(id="spritesetinfo-#{i}",href="/spriteset/#{sprite.spriteset.filename}/0", style="width:#{sprite.spriteset.spritewidth}px;height:#{sprite.spriteset.spriteheight}px;")
 						- var l = i; //- TODO
 						div(class="sprite_#{i}")
-							canvas.layer(id="canvas_#{l}", width="#{spritesets[i].spritewidth}", height="#{spritesets[i].spriteheight}", style="z-index:100")
+							canvas.layer(id="canvas_#{l}", width="#{sprite.spriteset.spritewidth}", height="#{sprite.spriteset.spriteheight}", style="z-index:100")
 					.caption
 						.tab-content
-							h5 #{spritesets[i].name}
-							p #{spritesets[i].description}
+							h5 #{sprite.spriteset.name}
+							p #{sprite.spriteset.description}
 							h5 Data
 							dl.dl-horizontal
 								dt name
-								dd #{spritesets[i].name}
+								dd #{sprite.spriteset.name}
 								dt author
-								dd #{spritesets[i].author}
+								dd #{sprite.spriteset.author}
 						div(style="overflow:auto;")
 							.pull-right
-								a.btn.btn-success(title="Download spriteset", href="#{spritesets[i].url}")
+								a.btn.btn-success(title="Download spriteset", href="#{sprite.spriteset.url}")
 									i.icon-download.icon-white
 									|  Download
 
-				script
-					function draw_sprite_#{i}() {
-						var canvas = document.getElementById('canvas_#{i}');
-						var context = canvas.getContext('2d');
-						var sprite = new Image();
-						var animation = !{animations};
-						console.log(animation);
-						sprite.src = "/spriteset/#{spritesets[i].filename}/0";
-						var current_ani_index = 0;
-						function draw() {
-							context.clearRect(0,0,#{spritesets[i].spritewidth},#{spritesets[i].spriteheight});
-							context.drawImage(sprite, animation[#{i}][current_ani_index][0], animation[#{i}][current_ani_index][1], #{spritesets[i].spritewidth}, #{spritesets[i].spriteheight}, 0, 0, #{spritesets[i].spritewidth}, #{spritesets[i].spriteheight});
-						}
-						function time_#{i}() {
-							draw();
-							console.log(current_ani_index);
-							console.log(animation[#{i}].length);
-							if(current_ani_index < animation[#{i}].length-1) {
-								current_ani_index++;
-							} else {
-								current_ani_index = 0;
-							}
-
-						}
-						sprite.onload = function() {
-							window.setInterval(time_#{i},60000/(60*3));
-						}
-					}
-					draw_sprite_#{i}();
-					
+				include sprite_javascript

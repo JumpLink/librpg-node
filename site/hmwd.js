@@ -7,6 +7,7 @@ var form2json = require('form2json')
   , Image = Canvas.Image
   , fs = require('fs')
   , nodejs_maps = []
+  , nodejs_sprites =[]
   ;
 //var HmwdCanvas = require(__dirname+'/public/javascripts/canvas.js');
 
@@ -18,6 +19,7 @@ function init() {
 	css.generateTileCss();
 	css.generateTileSetCss();
 	parseAllMapsForNodejs();
+	parseAllSpritesForNodejs();
 }
 
 function getPngBuffer(tex){
@@ -101,22 +103,12 @@ function getMapTileImageCoordAsJsonString(map, area_l, area_x, area_y) {
 	return getObjectAsJsonString(tiles);
 }
 
-// function getMapInfo() { //TODO not work
-// 	var tilewidth = data.mapmanager.getMapFromIndex(0).tilewidth;
-// 	var tileheight = data.mapmanager.getMapFromIndex(0).tileheight;
-
-// 	var mapinfo = {
-// 		tilewidth : tilewidth,
-// 		tileheight : tileheight
-// 	}
-// 	return mapinfo;
-// }
-
 function parseAllMapsForNodejs() {
-	console.log("data.mapmanager.length:"+data.mapmanager.length);
+	//nodejs_maps = [data.mapmanager.length]; //TODO dosn't work, why?
+	//console.log("data.mapmanager.length:"+data.mapmanager.length);
 	for (var i = 0; i < data.mapmanager.length; i++) {
 		var tmp_map = data.mapmanager.getMapFromIndex(i);
-		console.log("tmp_map.filename:"+tmp_map.filename);
+		//console.log("tmp_map.filename:"+tmp_map.filename);
 		nodejs_map = {
 			filename: tmp_map.filename,
 			version:  tmp_map.version,
@@ -133,7 +125,6 @@ function parseAllMapsForNodejs() {
 			tilewidth:tmp_map.tilewidth,
 			tileheight:tmp_map.tileheight,
 			download_url : "/data/map/"+data.mapmanager.getMapFilenameFromIndex(i),
-			//nodejs_tiles : hmwd.getMapTileIds(maps[i], {from: 0, to: maps[i].all_layer_size}, {from: 0, to: width}, {from: 0, to: height}),
 			description : "This is a simple test map to test our game engine.", //TOTO move to Hmwd
 			name : "Test Map", //TOTO move to Hmwd
 			author : "Pascal Garber", //TOTO move to Hmwd
@@ -146,6 +137,8 @@ function parseAllMapsForNodejs() {
 		nodejs_maps[i]=nodejs_map;
 	};
 }
+
+
 
 function generateMapThumbnail(map) {
 	var area_l = JSON.parse(map.area_l);
@@ -193,6 +186,43 @@ function generateMapThumbnail(map) {
 	});
 }
 
+function load_animations(ani, width, height) {
+	var animation = [];
+	console.log("animationdata.size: "+ani.size);
+	console.log("width: "+width);
+	console.log("height: "+height);
+	for (var i = 0; i < ani.size; i++) {
+		//TODO repeat or not?
+		console.log(ani.get_AnimationData().to_string_for_split('|'));
+		animation[i] = ani.get_AnimationData().to_string_for_split('|').split('|');
+		animation[i][0]*=width;
+		animation[i][1]*=height;
+		ani.time();
+		console.log(animation[i]);
+	};
+	return animation;
+}
+
+function parseAllSpritesForNodejs() {
+	//nodejs_sprites = [data.spritesetmanager.size];
+	var spritesetmanager = data.spritesetmanager;
+	var spritesets = [];
+
+	for(var i=0;i<spritesetmanager.size;i++) {
+		spritesets[i] = spritesetmanager.getFromIndex(i);
+		spritesets[i].set_Animation_from_string("go","south");
+		spritesets[i].url = "/data/spriteset/"+spritesets[i].filename.replace(new RegExp(" ","g"), '%20');
+		spritesets[i].description = "This is a test spriteset to test this site."; //TOTO move to Hmwd
+		spritesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
+		spritesets[i].name = "test "+i; //TODO1 i = 1, move to Hmwd
+		var nodejs_sprite = {
+			spriteset : spritesets[i],
+			animation : getObjectAsJsonString(load_animations(spritesets[i].current_animation, spritesets[i].spritewidth, spritesets[i].spriteheight))
+		}
+		nodejs_sprites[i] = nodejs_sprite;
+	}
+}
+
 function getNodejsMapFromFilename(filename) {
 	for (var i = 0; i < data.mapmanager.length; i++) {
 		if (nodejs_maps[i].filename == filename)
@@ -212,6 +242,7 @@ module.exports = {
 	init:init,
 	data:data,
 	nodejs_maps:nodejs_maps,
+	nodejs_sprites:nodejs_sprites,
 	getNodejsMapFromFilename:getNodejsMapFromFilename
 	//getMapInfo:getMapInfo
 }

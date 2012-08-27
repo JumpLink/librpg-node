@@ -1,0 +1,30 @@
+script
+	function sprite_#{i}() {
+		var canvas = document.getElementById('canvas_#{i}');
+		var context = canvas.getContext('2d');
+		var sprite = new Image();
+		var animation = !{sprite.animation};
+		//console.log(animation);
+		sprite.src = "/spriteset/#{sprite.spriteset.filename}/0";
+		var current_ani_index = 0;
+		function draw() {
+			context.clearRect(0,0,#{sprite.spriteset.spritewidth},#{sprite.spriteset.spriteheight});
+			context.drawImage(sprite, animation[current_ani_index][0], animation[current_ani_index][1], #{sprite.spriteset.spritewidth}, #{sprite.spriteset.spriteheight}, 0, 0, #{sprite.spriteset.spritewidth}, #{sprite.spriteset.spriteheight});
+		}
+		function time_#{i}() {
+			draw();
+			//- console.log(current_ani_index);
+			//- Object.keys(animation).length instead of animation.length
+			if(current_ani_index < Object.keys(animation).length-1) {
+				current_ani_index++;
+			} else {
+				current_ani_index = 0;
+			}
+
+		}
+		sprite.onload = function() {
+			//- TODO speed from file
+			window.setInterval(time_#{i},60000/(60*4));
+		}
+	}
+	sprite_#{i}();
