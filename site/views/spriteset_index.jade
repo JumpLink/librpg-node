@@ -8,33 +8,41 @@ block content
 			| If you think you have a spriteset that fits into our game and you wish to see your own spriteset here, please send a email to 
 			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
 			| with the spriteset as attachment.
-	.row.show-grid
-		.span4
-			each sprite, i in sprites
+	ul.thumbnails
+		each sprite, i in sprites
+			.span4
 				.well
-					// filename
-					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
-						i.icon-file.icon-white
-						| #{sprite.spriteset.filename}
-					// tiles
-					a.thumbnail(id="spritesetinfo-#{i}",href="/spriteset/#{sprite.spriteset.filename}/0", style="width:#{sprite.spriteset.spritewidth}px;height:#{sprite.spriteset.spriteheight}px;")
-						- var l = i; //- TODO
-						div(class="sprite_#{i}")
-							canvas.layer(id="canvas_#{l}", width="#{sprite.spriteset.spritewidth}", height="#{sprite.spriteset.spriteheight}", style="z-index:100")
-					.caption
-						.tab-content
-							h5 #{sprite.spriteset.name}
-							p #{sprite.spriteset.description}
-							h5 Data
-							dl.dl-horizontal
-								dt name
-								dd #{sprite.spriteset.name}
-								dt author
-								dd #{sprite.spriteset.author}
-						div(style="overflow:auto;")
-							.pull-right
-								a.btn.btn-success(title="Download spriteset", href="#{sprite.spriteset.url}")
-									i.icon-download.icon-white
-									|  Download
-
+					ul.btn-group.tab-button-group(id="tab_#{i}", data-toggle="buttons-radio")
+						a.btn.btn-success.btn-tab(id="sprite_btn_#{i}", href="#sprite_#{i}",data-toggle="tab")
+							| Sprite
+						a.btn.btn-info.btn-tab(href="#info_#{i}",data-toggle="tab")
+							| Info
+					.tab-content
+						.tab-pane.fade(id="sprite_#{i}")
+							a.thumbnail(id="spritesetinfo-#{i}",href="/spriteset/#{sprite.spriteset.filename}/0", style="width:#{sprite.spriteset.spritewidth}px;height:#{sprite.spriteset.spriteheight}px;")
+								- var l = i; //- TODO
+								canvas.layer(id="canvas_#{l}", width="#{sprite.spriteset.spritewidth}", height="#{sprite.spriteset.spriteheight}", style="z-index:100")
+						.tab-pane.fade(id="info_#{i}")
+							.caption
+								.tab-content
+									h5 #{sprite.spriteset.name}
+									p #{sprite.spriteset.description}
+									h5 Data
+									dl.dl-horizontal
+										dt name
+										dd #{sprite.spriteset.name}
+										dt filename
+										dd #{sprite.spriteset.filename}
+										dt author
+										dd #{sprite.spriteset.author}
+								div(style="overflow:auto;")
+									.pull-right
+										a.btn.btn-success(title="Download spriteset", href="#{sprite.spriteset.url}")
+											i.icon-download.icon-white
+											|  Download
+				script
+					$(document).ready(function(){
+						$('#tab_!{i} a:first').tab('show');
+						$('#sprite_btn_!{i}').button('toggle')
+					});
 				include sprite_javascript

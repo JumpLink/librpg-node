@@ -4,7 +4,7 @@ var fs = require('fs');
 function save(filename, write_string) {
     //write_string = prettyjson.render(write_string);
     write_string = JSON.stringify(write_string, null, 2)
-    console.log(write_string);
+    //console.log(write_string);
 
     fs.writeFile(filename, write_string, function(err) {
         if(err) {

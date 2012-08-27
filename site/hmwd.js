@@ -156,8 +156,8 @@ function generateMapThumbnail(map) {
 		tilesets[t] = new Image;
 		tilesets[t].src = fs.readFileSync(__dirname + '/public/data/tileset/'+map.tilesets[t]);
 	}
-	console.log("tilesets");
-	console.log(tilesets);
+	//console.log("tilesets");
+	//console.log(tilesets);
 	for(var l=area_l.from;l<area_l.to;l++) {
 		for(var y=area_y.from;y<area_y.to;y++) {
 			for(var x=area_x.from;x<area_x.to;x++) {
@@ -188,17 +188,17 @@ function generateMapThumbnail(map) {
 
 function load_animations(ani, width, height) {
 	var animation = [];
-	console.log("animationdata.size: "+ani.size);
-	console.log("width: "+width);
-	console.log("height: "+height);
+	//console.log("animationdata.size: "+ani.size);
+	//console.log("width: "+width);
+	//console.log("height: "+height);
 	for (var i = 0; i < ani.size; i++) {
 		//TODO repeat or not?
-		console.log(ani.get_AnimationData().to_string_for_split('|'));
+		//console.log(ani.get_AnimationData().to_string_for_split('|'));
 		animation[i] = ani.get_AnimationData().to_string_for_split('|').split('|');
 		animation[i][0]*=width;
 		animation[i][1]*=height;
 		ani.time();
-		console.log(animation[i]);
+		//console.log(animation[i]);
 	};
 	return animation;
 }

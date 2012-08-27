@@ -10,10 +10,10 @@ block content
 			| with the map as attachment.
 	ul.thumbnails
 		each map,i in maps
-			.span4(style="padding-bottom:20px;")
+			.span4(style="padding-bottom:5px;padding-top:10px;")
 				.well
-					ul.btn-group.tab-button-group(id="tab_#{i}")
-						a.btn.btn-success.btn-tab(href="#map_#{i}",data-toggle="tab")
+					ul.btn-group.tab-button-group(id="tab_#{i}", data-toggle="buttons-radio")
+						a.btn.btn-success.btn-tab(id="map_btn_#{i}", href="#map_#{i}",data-toggle="tab")
 							| Map
 						a.btn.btn-info.btn-tab(href="#info_#{i}",data-toggle="tab")
 							| Info
@@ -42,9 +42,8 @@ block content
 											a.btn.btn-success(title="Download map", href="#{map.download_url}")
 												i.icon-download.icon-white
 												|  Download
-	!= "<script>"
-		each map,i in maps
-			!= "$(document).ready(function(){"
-				!= "$('#tab_"+i+" a:first').tab('show');"
-			!= "});"
-	!= "</script>"
+			script
+				$(document).ready(function(){
+					$('#tab_!{i} a:first').tab('show');
+					$('#map_btn_!{i}').button('toggle')
+				});
