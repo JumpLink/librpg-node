@@ -9,16 +9,15 @@ block content
 			a(href="mailto:pascal@hmworld.eu?subject=Map") pascal@hmworld.eu 
 			| with the tileset as attachment.
 	.row.show-grid
-		.span4
+		.span4	
 			- for (var i=0; i<tilesets.length; i++)
 				.well
-					// filename
-					span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
-						i.icon-file.icon-white
-						| #{tilesets[i].source}
-					// tiles
+					//- span.label.label-info.pull-right(style="z-index:100;position:relative;margin:-5px;")
+					//- 	i.icon-file.icon-white
+					//- 	| #{tilesets[i].source}
+					//- tiles
 					a.thumbnail(id="tilesetinfo-#{i}",href="#{tilesets[i].url}")
-						img(src="#{tilesets[i].url}",alt="#{tilesets[i].filename}")
+						img(src="#{tilesets[i].thumb_url}",alt="#{tilesets[i].filename}")
 					.caption
 						.tab-content
 							h5 #{tilesets[i].name}

@@ -7,7 +7,8 @@ var form2json = require('form2json')
   , Image = Canvas.Image
   , fs = require('fs')
   , nodejs_maps = []
-  , nodejs_sprites =[]
+  , nodejs_sprites = []
+  , nodejs_tilesets = []
   ;
 //var HmwdCanvas = require(__dirname+'/public/javascripts/canvas.js');
 
@@ -20,6 +21,7 @@ function init() {
 	css.generateTileSetCss();
 	parseAllMapsForNodejs();
 	parseAllSpritesForNodejs();
+	parseAllTileSetsForNodejs();
 }
 
 function getPngBuffer(tex){
@@ -166,7 +168,7 @@ function generateMapThumbnail(map) {
 			}
 		}
 	}
-	context.fillStyle = 'rgba(0,0,0,0.5)';
+	context.fillStyle = 'rgba(0,0,0,0.7)';
 	context.fillRect(0,0,width,30); //black transparent box on top
 	context.fillRect(0,height-30,width,height);  //black transparent box on bottom
 
@@ -176,7 +178,7 @@ function generateMapThumbnail(map) {
 
 	context.font = 'normal 12px "Ubuntu Beta", UbuntuBeta, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, sans-serif';
 	context.fillText(map.width+" × "+map.height+" tiles", width-95, 20); //right text for box on top
-	context.fillText(map.author, 5, height-12); //left text for box on bottom
+	context.fillText('by '+map.author, 5, height-12); //left text for box on bottom
 
 	var out = fs.createWriteStream(__dirname +'/public/data/map/thumb_'+ map.filename+".png")
 	  , stream = canvas.createPNGStream();
@@ -223,6 +225,62 @@ function parseAllSpritesForNodejs() {
 	}
 }
 
+
+function generateTileSetThumbnail(tileset) {
+	var width = tileset.width;
+	var height = tileset.height;
+	var tilewidth = tileset.tilewidth;
+	var tileheight = tileset.tileheight;
+	var count_x = tileset.count_x;
+	var count_y = tileset.count_y;
+	var filename = tileset.filename;
+	var image_filename = tileset.source;
+	var author = tileset.author;
+	var name = tileset.name;
+	var canvas = new Canvas(width, height);
+	var context = canvas.getContext('2d');
+
+	var tileset_img = new Image;
+	tileset_img.src = fs.readFileSync(__dirname + '/public/data/tileset/'+image_filename);
+
+	context.drawImage(tileset_img, 0, 0, width, height, 0, 0, width, height);
+
+	context.fillStyle = 'rgba(0,0,0,0.7)';
+	context.fillRect(0,0,width,30); //black transparent box on top
+	context.fillRect(0,height-30,width,height);  //black transparent box on bottom
+
+	context.fillStyle = 'white';
+	context.font = 'bold 14px "Ubuntu Beta", UbuntuBeta, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, sans-serif';
+	context.fillText(filename+" - "+name, 5, 20);	//left text for box on top
+
+	//context.font = 'normal 12px "Ubuntu Beta", UbuntuBeta, Ubuntu, "Bitstream Vera Sans", "DejaVu Sans", Tahoma, sans-serif';
+	context.fillText(count_x+" × "+count_y+" tiles", width-95, 20); //right text for box on top
+	context.fillText('by '+author, 5, height-12); //left text for box on bottom
+
+	var out = fs.createWriteStream(__dirname +'/public/data/tileset/thumb_'+ image_filename)
+	  , stream = canvas.createPNGStream();
+
+	stream.on('data', function(chunk){
+	  out.write(chunk);
+	});
+}
+
+function parseAllTileSetsForNodejs() {
+	var tilesetmanager = data.tilesetmanager;
+	var tilesets = [];
+	for(var i=0;i<tilesetmanager.size;i++) {
+		tilesets[i] = tilesetmanager.getFromIndex(i);
+		tilesets[i].url = "/data/tileset/"+tilesets[i].source.replace(new RegExp(" ","g"), '%20');
+		tilesets[i].thumb_url = "/data/tileset/thumb_"+tilesets[i].source.replace(new RegExp(" ","g"), '%20');
+		tilesets[i].description = "This is a test tileset to test this site."; //TOTO move to Hmwd
+		tilesets[i].name = "Test TileSet"; //TOTO move to Hmwd
+		tilesets[i].author = "Pascal Garber"; //TOTO move to Hmwd
+		generateTileSetThumbnail(tilesets[i]);
+
+		nodejs_tilesets[i] = tilesets[i];
+	}
+}
+
 function getNodejsMapFromFilename(filename) {
 	for (var i = 0; i < data.mapmanager.length; i++) {
 		if (nodejs_maps[i].filename == filename)
@@ -243,6 +301,6 @@ module.exports = {
 	data:data,
 	nodejs_maps:nodejs_maps,
 	nodejs_sprites:nodejs_sprites,
-	getNodejsMapFromFilename:getNodejsMapFromFilename
-	//getMapInfo:getMapInfo
+	getNodejsMapFromFilename:getNodejsMapFromFilename,
+	nodejs_tilesets:nodejs_tilesets
 }
