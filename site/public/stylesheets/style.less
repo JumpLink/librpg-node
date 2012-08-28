@@ -93,32 +93,25 @@ a.border_round:hover {
   background-color: darken(@wellBackground, 7%);
 }
 
+.well-map {
+  .well;
+}
+
 .btn-tab {
 
 }
+// -> move map-index buttons to the middle
 .tab-button-group {
   margin-top: -29px;
   bottom: 6px;
-  margin-left: 30%;
+  margin-left: -50px;
   margin-right: auto;
 }
-//TODO anderemoeglichkeit fuers mittige suchen ->
-@media (max-width: 980px) {
-  .tab-button-group {
-    margin-left: 20%;
-  }
-}
-@media (max-width: 768px) {
-  .tab-button-group {
-    margin-left: 40%;
-  }
-}
-@media (max-width: 480px) {
-  .tab-button-group {
-    margin-left: 28%;
-  }
-} 
 
+.map-index-buttons {
+  margin-left:50%;
+}
+// <-
 .actor {
   float:left;
 }
@@ -145,3 +138,27 @@ a.actor_img {
   color: #999;
   font-size: 85%;
 }
+.tab-map-info{
+  max-height:264px;
+}
+
+//-> popover
+.popover.bottom .arrow {
+  border-bottom-color: @black;
+  border-bottom-color: rgba(0, 0, 0, 0.9);
+}
+.fade.in {
+  background: @black; //fallback
+  background: rgba(0, 0, 0, 0.9); //opacity without opacity for the child-elements
+}
+.popover-title {
+  background: none;
+  color: darken(@white, 14%);
+  border-color: black;
+}
+.popover-content {
+  background-color: none;
+  color: darken(@white, 14%);
+}
+
+//<-

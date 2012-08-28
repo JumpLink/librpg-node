@@ -11,13 +11,14 @@ block content
 	ul.thumbnails
 		each map,i in maps
 			.span4(style="padding-bottom:5px;padding-top:10px;")
-				.well
-					ul.btn-group.tab-button-group(id="tab_#{i}", data-toggle="buttons-radio")
-						a.btn.btn-success.btn-tab(id="media_btn_#{i}", href="#media_#{i}",data-toggle="tab")
-							i.icon-picture.icon-white
-						a.btn.btn-info.btn-tab(href="#info_#{i}",data-toggle="tab")
-							i.icon-info-sign.icon-white
-					.tab-content
+				.well-map
+					.map-index-buttons
+						.btn-group.tab-button-group(id="tab_#{i}", data-toggle="buttons-radio")
+							a.btn.btn-success.btn-tab(id="media_btn_#{i}", href="#media_#{i}",data-toggle="tab")
+								i.icon-picture.icon-white
+							a.btn.btn-info.btn-tab(href="#info_#{i}",data-toggle="tab")
+								i.icon-info-sign.icon-white
+					.tab-content.tab-map-info
 						.tab-pane.fade(id="media_#{i}")
 							a.thumbnail(id="mapinfo-#{i}",href="/map/#{map.filename}")
 								img(src="/data/map/thumb_#{map.filename}.png")
