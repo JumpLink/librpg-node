@@ -17,7 +17,7 @@ block content
 					.btn-group.btn-group-vertical.pull-right(id="tab_#{i}" , style="top:0;")
 						button.btn.btn-info(id="info_btn_#{i}", href="#", rel="popover", data-original-title="Details of <b>#{sprite.spriteset.name}</b>", data-placement="bottom", data-toggle="buttons-checkbox")
 							i.icon-info-sign.icon-white
-						button.btn.btn-success(title="Download spriteset", onclick="javascript:window.location.href='#{sprite.spriteset.url}'", style="width:44px")
+						button.btn.btn-success(title="Download sprite", onclick="javascript:window.location.href='#{sprite.spriteset.url}'", style="width:44px")
 							i.icon-download.icon-white
 					p(style="padding-top:80px;") #{sprite.spriteset.name}
 						br
@@ -37,7 +37,8 @@ block content
 							dd #{sprite.spriteset.spritewidth} × #{sprite.spriteset.spriteheight} pixel
 							dt layer
 							//- TODO interate layer
-							dd: a(href="/spriteset/#{sprite.spriteset.filename}/0) #{sprite.spriteset.filename}
+							- for(sl = 0; sl < sprite.spriteset.spritelayers_size; sl++)
+								dd: a(href="/spriteset/#{sprite.spriteset.filename}/#{sl}") #{sprite.spriteset.get_spritelayers_from_index(sl).image_filename}
 					!= "';"
 				!= "</script>"
 				script

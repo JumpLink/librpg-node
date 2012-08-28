@@ -234,14 +234,14 @@ function generateTileSetThumbnail(tileset) {
 	var count_x = tileset.count_x;
 	var count_y = tileset.count_y;
 	var filename = tileset.filename;
-	var image_filename = tileset.source;
+	var source = tileset.source;
 	var author = tileset.author;
 	var name = tileset.name;
 	var canvas = new Canvas(width, height);
 	var context = canvas.getContext('2d');
 
 	var tileset_img = new Image;
-	tileset_img.src = fs.readFileSync(__dirname + '/public/data/tileset/'+image_filename);
+	tileset_img.src = fs.readFileSync(__dirname + '/public/data/tileset/'+source);
 
 	context.drawImage(tileset_img, 0, 0, width, height, 0, 0, width, height);
 
@@ -257,7 +257,7 @@ function generateTileSetThumbnail(tileset) {
 	context.fillText(count_x+" × "+count_y+" tiles", width-95, 20); //right text for box on top
 	context.fillText('by '+author, 5, height-12); //left text for box on bottom
 
-	var out = fs.createWriteStream(__dirname +'/public/data/tileset/thumb_'+ image_filename)
+	var out = fs.createWriteStream(__dirname +'/public/data/tileset/thumb_'+ source)
 	  , stream = canvas.createPNGStream();
 
 	stream.on('data', function(chunk){
