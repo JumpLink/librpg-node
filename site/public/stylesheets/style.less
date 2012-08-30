@@ -2,20 +2,35 @@
 @import "responsive.less";
 @import "tile.less";
 @import "tileset.less";
+//-> variables
+@blue:                    #0495d1;
+@blueDark:                darken(@blue, 10%);
+@blueDarker:              darken(@blueDark, 15%);
 
 @iconSpritePath:          "../images/glyphicons-halflings.png";
 @iconWhiteSpritePath:     "../images/glyphicons-halflings-white.png";
+@bodyBackground:          @grayDark;
+@wellBackground:          @grayDarker;
+@infoText:                @grayDarker;
 
+@infoBackground:          @blue;
+@infoBorder:              darken(spin(@infoBackground, -10), 7%);
+
+@linkColor:             @blue;
+@linkColorHover:        @blueDark;
+
+@textColor:             @grayLight;
+//<- variables
+
+//-> main
 @media (min-width: 980px) {
   body {
     padding-top: 60px;
   }
 }
-
 html,body {
   height: 100%;
 }
-
 //Unity like scrollbar
 ::-webkit-scrollbar {
     width: 5px !important;
@@ -31,6 +46,18 @@ html,body {
     border-radius: 0px !important;
     background-color: #f07746 !important;
 }
+//<- main
+
+//-> alert
+.alert {
+  text-shadow: none;
+  a {
+    color: @black;
+    &:hover { color: @black; }
+  }
+
+}
+//<- alert
 
 .navbar .brand {
   padding-top:4px;
@@ -91,6 +118,7 @@ a.border_round:hover {
 .well-dark {
   border: 1px solid darken(@wellBackground, 14%);
   background-color: darken(@wellBackground, 7%);
+  color: ;
 }
 
 .well-map {
@@ -153,12 +181,21 @@ a.actor_img {
 }
 .popover-title {
   background-color: rgba(30, 30, 30, 0.9);
-  color: darken(@white, 14%);
+  color: @textColor;
   border-color: @black;
 }
 .popover-content {
   background-color: none;
-  color: darken(@white, 14%);
+  color: @textColor;
 }
+//<- popover
 
+//->
+.thumbnail {
+  border-color: #101010;
+  a {
+
+    &:hover { color: @black; }
+  }
+}
 //<-
