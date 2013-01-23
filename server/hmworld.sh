@@ -73,7 +73,7 @@ LOCAL_VAR_RUN=/usr/local/var/run            # in case the init script is run by 
                                             #         (see here: https://github.com/isaacs/npm/blob/master/README.md)
 
 NAME=node                                   # name of the node.js executable
-DAEMON=/usr/local/bin/$NAME                 # this SHOULD POINT TO where your node executable is
+DAEMON=/usr/bin/$NAME                 # this SHOULD POINT TO where your node executable is
 #
 #                                                                              #
 #                   END </MODIFY TO REFLECT YOUR SETTINGS>                     #
