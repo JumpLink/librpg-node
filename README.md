@@ -1,4 +1,2 @@
-HMWorld-Website
+libprg-node
 ===============
-
-The website for the HMWorld project
